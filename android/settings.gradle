@@ -1,2 +1,0 @@
-include ':app'
-rootProject.name = "qplayer2demo"
