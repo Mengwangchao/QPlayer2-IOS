@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		404B4AC63E07219F80148C01 /* libPods-qplayer2demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 28213E62E1DBFDB4047DE7E7 /* libPods-qplayer2demo.a */; };
+		502BE93D28BCE0A3002D8B4C /* qplayer2_core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 502BE93C28BCDFB7002D8B4C /* qplayer2_core.framework */; platformFilter = ios; };
+		502BE93E28BCE0A3002D8B4C /* qplayer2_core.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 502BE93C28BCDFB7002D8B4C /* qplayer2_core.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		50B1F3D5289BBF7A0074E02D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50B1F3D4289BBF7A0074E02D /* Foundation.framework */; };
 		50B1F484289CC62D0074E02D /* QNPlayerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B1F41F289CC62D0074E02D /* QNPlayerModel.m */; };
 		50B1F487289CC62D0074E02D /* QNConfigSegTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B1F425289CC62D0074E02D /* QNConfigSegTableViewCell.m */; };
@@ -90,6 +92,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				502BE93E28BCE0A3002D8B4C /* qplayer2_core.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -202,6 +205,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				50B1F3D5289BBF7A0074E02D /* Foundation.framework in Frameworks */,
+				502BE93D28BCE0A3002D8B4C /* qplayer2_core.framework in Frameworks */,
 				404B4AC63E07219F80148C01 /* libPods-qplayer2demo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
