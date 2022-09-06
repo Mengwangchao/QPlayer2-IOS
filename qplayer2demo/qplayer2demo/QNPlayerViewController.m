@@ -97,7 +97,14 @@ QIPlayerRenderListener
         [self.navigationController setNavigationBarHidden:NO animated:NO];
     }
 }
-
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    self.toastView = nil;
+    [_playerModels removeAllObjects];
+    _playerModels = nil;
+    self.myRenderView = nil;
+    
+}
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     if (!self.scanClick) {
@@ -107,6 +114,7 @@ QIPlayerRenderListener
         [self.playerContext.controlHandler stop];
         
         [self.playerContext.controlHandler playerRelease];
+        [self.myRenderView renderViewRelease];
         self.playerContext = nil;
     }
     
