@@ -17,7 +17,6 @@
 
 #import "QNURLListTableViewCell.h"
 
-#import "QNPlayerModel.h"
 #import "QDataHandle.h"
 #import "QNToastView.h"
 
@@ -97,7 +96,14 @@ QIPlayerRenderListener
         [self.navigationController setNavigationBarHidden:NO animated:NO];
     }
 }
-
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    self.toastView = nil;
+    [_playerModels removeAllObjects];
+    _playerModels = nil;
+    self.myRenderView = nil;
+    
+}
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     if (!self.scanClick) {
@@ -107,7 +113,10 @@ QIPlayerRenderListener
         [self.playerContext.controlHandler stop];
         
         [self.playerContext.controlHandler playerRelease];
+        [self.myRenderView renderViewRelease];
         self.playerContext = nil;
+        
+        
     }
     
     
@@ -177,11 +186,12 @@ QIPlayerRenderListener
     [self.view addSubview:_toastView];
     [self playerContextAllCallBack];
     
+    
+    
 }
 
 #pragma mark - 初始化 PLPlayer
 
-//- (void)config
 
 - (void)setUpPlayer:(NSArray<QNClassModel*>*)models {
     NSMutableArray *configs = [NSMutableArray array];
@@ -204,12 +214,10 @@ QIPlayerRenderListener
     
     QPlayerContext *player =  [[QPlayerContext alloc]initPlayerAPPVersion:nil localStorageDir:documentsDir logLevel:LOG_VERBOSE];
     self.playerContext = player;
-//    self.playerContext.controlHandler.playerView.frame = CGRectMake(0, _topSpace, PLAYER_PORTRAIT_WIDTH, PLAYER_PORTRAIT_HEIGHT);
     _myRenderView = [[RenderView alloc]initWithFrame:CGRectMake(0, _topSpace, PLAYER_PORTRAIT_WIDTH, PLAYER_PORTRAIT_HEIGHT)];
     [_myRenderView attachRenderHandler:self.playerContext.renderHandler];
-//    [self.view addSubview:self.playerContext.controlHandler.playerView];
     [self.view addSubview:_myRenderView];
-//    [self.playerContext.controlHandler forceAuthenticationFromNetwork];
+    [self.playerContext.controlHandler forceAuthenticationFromNetwork];
     
     
     for (QNClassModel* model in configs) {
@@ -326,7 +334,7 @@ QIPlayerRenderListener
 
     long bufferPositon = self.playerContext.controlHandler.bufferPostion;
     NSString *fileUnit = @"ms";
-    
+
     NSString *fileSizeStr = [NSString stringWithFormat:@"%d%@", bufferPositon, fileUnit];
     NSMutableArray *mutableArray = [NSMutableArray arrayWithArray:array];
     [mutableArray addObjectsFromArray:@[fileSizeStr]];
@@ -369,12 +377,12 @@ QIPlayerRenderListener
 
 - (void)addPlayerMaskView{
     self.maskView = [[QNPlayerMaskView alloc] initWithFrame:CGRectMake(0, 0, PLAYER_PORTRAIT_WIDTH, PLAYER_PORTRAIT_HEIGHT) player:self.playerContext isLiving:NO renderView:self.myRenderView];
+    
     self.maskView.center = self.myRenderView.center;
     self.maskView.delegate = self;
     self.maskView.backgroundColor = PL_COLOR_RGB(0, 0, 0, 0.35);
-//    [self.view insertSubview:_maskView aboveSubview:self.playerContext.controlHandler.playerView];
     [self.view insertSubview:_maskView aboveSubview:self.myRenderView];
-        
+
     [self.maskView.qualitySegMc addTarget:self action:@selector(qualityAction:) forControlEvents:UIControlEventValueChanged];
 }
 
@@ -797,16 +805,16 @@ QIPlayerRenderListener
         tempIndex ++;
     }
     NSArray<NSString*> *segmentedArray = [[NSArray alloc]initWithObjects:@"1080p",@"720p",@"480p",@"270p",nil];
-    
+//    
 //    [self.playerContext.controlHandler switchQuality:model.streamElements[index]];
     BOOL switchQualityBool =[self.playerContext.controlHandler switchQuality:model.streamElements[index].userType urlType:model.streamElements[index].urlType quality:model.streamElements[index].quality immediately:model.isLive];
     if (!switchQualityBool) {
         self.maskView.qualitySegMc.selectedSegmentIndex = self.UpQualityIndex;
-        
+
         [_toastView addText:@"不可重复切换"];
     }else{
         _UpQualityIndex = index;
-        
+
         [_toastView addText:[NSString stringWithFormat:@"即将切换为：%@",segmentedArray[index]]];
     }
 }
