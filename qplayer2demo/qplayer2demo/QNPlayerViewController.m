@@ -98,10 +98,13 @@ QIPlayerRenderListener
 }
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
-    self.toastView = nil;
-    [_playerModels removeAllObjects];
-    _playerModels = nil;
-    self.myRenderView = nil;
+    if (!self.scanClick) {
+        self.toastView = nil;
+        [_playerModels removeAllObjects];
+        _playerModels = nil;
+        self.myRenderView = nil;
+        self.playerConfigArray = nil;
+    }
     
 }
 - (void)viewWillDisappear:(BOOL)animated {
@@ -113,7 +116,6 @@ QIPlayerRenderListener
         [self.playerContext.controlHandler stop];
         
         [self.playerContext.controlHandler playerRelease];
-        [self.myRenderView renderViewRelease];
         self.playerContext = nil;
         
         
@@ -215,10 +217,9 @@ QIPlayerRenderListener
     QPlayerContext *player =  [[QPlayerContext alloc]initPlayerAPPVersion:nil localStorageDir:documentsDir logLevel:LOG_VERBOSE];
     self.playerContext = player;
     _myRenderView = [[RenderView alloc]initWithFrame:CGRectMake(0, _topSpace, PLAYER_PORTRAIT_WIDTH, PLAYER_PORTRAIT_HEIGHT)];
-    [_myRenderView attachRenderHandler:self.playerContext.renderHandler];
+    [_myRenderView attachPlayerContext:self.playerContext];
     [self.view addSubview:_myRenderView];
     [self.playerContext.controlHandler forceAuthenticationFromNetwork];
-    
     
     for (QNClassModel* model in configs) {
         for (PLConfigureModel* configModel in model.classValue) {
@@ -362,7 +363,6 @@ QIPlayerRenderListener
                                        @(QPLAYER_STATE_PREPARE):@"PREPARE",
                                        @(QPLAYER_STATE_PLAYING):@"Playing",
                                        @(QPLAYER_STATE_PAUSED_RENDER):@"Paused",
-                                       @(QPLAYER_STATE_PAUSED):@"Paused",
                                        @(QPLAYER_STATE_STOPPED):@"Stopped",
                                        @(QPLAYER_STATE_ERROR):@"Error",
                                        @(QPLAYER_STATE_SEEKING):@"seek",
