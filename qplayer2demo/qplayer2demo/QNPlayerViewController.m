@@ -72,9 +72,10 @@ QIPlayerRenderListener
 /**toast **/
 @property (nonatomic, strong) QNToastView *toastView;
 
-@property (nonatomic, strong) QPlayerContext *playerContext;
+//@property (nonatomic, strong) QPlayerContext *playerContext;
 @property (nonatomic, assign) BOOL scanClick;
-@property (nonatomic, strong) RenderView *myRenderView;
+//@property (nonatomic, strong) RenderView *myRenderView;
+@property (nonatomic, strong) QPlayerView *myPlayerView;
 @property (nonatomic, assign) BOOL isPlaying;
 @property (nonatomic, assign) BOOL beInterruptedByOtherAudio;
 @property (nonatomic, assign) NSInteger UpQualityIndex;
@@ -88,6 +89,7 @@ QIPlayerRenderListener
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     QNAppDelegate *appDelegate = (QNAppDelegate *)[UIApplication sharedApplication].delegate;
     self.scanClick = NO;
     if (appDelegate.isFlip) {
@@ -102,7 +104,7 @@ QIPlayerRenderListener
         self.toastView = nil;
         [_playerModels removeAllObjects];
         _playerModels = nil;
-        self.myRenderView = nil;
+        self.myPlayerView = nil;
         self.playerConfigArray = nil;
     }
     
@@ -113,10 +115,9 @@ QIPlayerRenderListener
         
         [self.durationTimer invalidate];
         self.durationTimer = nil;
-        [self.playerContext.controlHandler stop];
+        [self.myPlayerView.controlHandler stop];
         
-        [self.playerContext.controlHandler playerRelease];
-        self.playerContext = nil;
+        [self.myPlayerView.controlHandler playerRelease];
         
         
     }
@@ -214,13 +215,15 @@ QIPlayerRenderListener
     NSString *documentsDir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
 
     
-    QPlayerContext *player =  [[QPlayerContext alloc]initPlayerAPPVersion:nil localStorageDir:documentsDir logLevel:LOG_VERBOSE];
-    self.playerContext = player;
-    _myRenderView = [[RenderView alloc]initWithFrame:CGRectMake(0, _topSpace, PLAYER_PORTRAIT_WIDTH, PLAYER_PORTRAIT_HEIGHT)];
-    [_myRenderView attachPlayerContext:self.playerContext];
-    [self.view addSubview:_myRenderView];
-    [self.playerContext.controlHandler forceAuthenticationFromNetwork];
-    
+//    QPlayerContext *player =  [[QPlayerContext alloc]initPlayerAPPVersion:nil localStorageDir:documentsDir logLevel:LOG_VERBOSE];
+//    self.playerContext = player;
+//    _myRenderView = [[RenderView alloc]initWithFrame:CGRectMake(0, _topSpace, PLAYER_PORTRAIT_WIDTH, PLAYER_PORTRAIT_HEIGHT)];
+//    [_myRenderView attachPlayerContext:self.playerContext];
+//    [self.view addSubview:_myRenderView];
+    self.myPlayerView = [[QPlayerView alloc]initWithFrame:CGRectMake(0, _topSpace, PLAYER_PORTRAIT_WIDTH, PLAYER_PORTRAIT_HEIGHT) APPVersion:@"" localStorageDir:documentsDir logLevel:LOG_VERBOSE];
+    [self.view addSubview:self.myPlayerView];
+//    [self.playerContext.controlHandler forceAuthenticationFromNetwork];
+    [self.myPlayerView.controlHandler forceAuthenticationFromNetwork];
     for (QNClassModel* model in configs) {
         for (PLConfigureModel* configModel in model.classValue) {
             if ([model.classKey isEqualToString:@"PLPlayerOption"]) {
@@ -231,7 +234,8 @@ QIPlayerRenderListener
     QMediaModel *model = [[QMediaModel alloc] init];
     model.streamElements = _playerModels.firstObject.streamElements;
     model.isLive = _playerModels.firstObject.isLive;
-    [self.playerContext.controlHandler playMediaModel:model startPos:[[QDataHandle shareInstance] getConfiguraPostion]];
+//    [self.playerContext.controlHandler playMediaModel:model startPos:[[QDataHandle shareInstance] getConfiguraPostion]];
+    [self.myPlayerView.controlHandler playMediaModel:model startPos:[[QDataHandle shareInstance] getConfiguraPostion]];
 
 
 }
@@ -240,13 +244,20 @@ QIPlayerRenderListener
 
 -(void)playerContextAllCallBack{
 
-    [self.playerContext.controlHandler addPlayerStateListener:self];
-    [self.playerContext.controlHandler addPlayerBufferingChangeListener:self];
-    [self.playerContext.controlHandler addPlayerQualityListener:self];
-    [self.playerContext.controlHandler addPlayerSpeedChangeListener:self];
-    [self.playerContext.controlHandler addPlayerAuthenticationListener:self];
-    [self.playerContext.controlHandler addPlayerSEIDataListener:self];
-    [self.playerContext.renderHandler addPlayerRenderListener:self];
+//    [self.playerContext.controlHandler addPlayerStateListener:self];
+//    [self.playerContext.controlHandler addPlayerBufferingChangeListener:self];
+//    [self.playerContext.controlHandler addPlayerQualityListener:self];
+//    [self.playerContext.controlHandler addPlayerSpeedChangeListener:self];
+//    [self.playerContext.controlHandler addPlayerAuthenticationListener:self];
+//    [self.playerContext.controlHandler addPlayerSEIDataListener:self];
+//    [self.playerContext.renderHandler addPlayerRenderListener:self];
+    [self.myPlayerView.controlHandler addPlayerStateListener:self];
+    [self.myPlayerView.controlHandler addPlayerBufferingChangeListener:self];
+    [self.myPlayerView.controlHandler addPlayerQualityListener:self];
+    [self.myPlayerView.controlHandler addPlayerSpeedChangeListener:self];
+    [self.myPlayerView.controlHandler addPlayerAuthenticationListener:self];
+    [self.myPlayerView.controlHandler addPlayerSEIDataListener:self];
+    [self.myPlayerView.renderHandler addPlayerRenderListener:self];
     
 }
 -(void)onFirstFrameRendered:(QPlayerContext *)context elapsedTime:(NSInteger)elapsedTime{
@@ -328,12 +339,15 @@ QIPlayerRenderListener
 - (NSArray *)updateInfoArray {
     NSString *statusStr = [self updatePlayerStatus];
     NSString *firstVideoTimeStr = [NSString stringWithFormat:@"%d ms",self.firstVideoTime];
-    NSString *renderFPSStr = [NSString stringWithFormat:@"%dfps", self.playerContext.controlHandler.fps];
-    NSString *downSpeedStr = [NSString stringWithFormat:@"%.2fkb/s", self.playerContext.controlHandler.downloadSpeed * 1.0/1000];
+//    NSString *renderFPSStr = [NSString stringWithFormat:@"%dfps", self.playerContext.controlHandler.fps];
+    NSString *renderFPSStr = [NSString stringWithFormat:@"%dfps", self.myPlayerView.controlHandler.fps];
+//    NSString *downSpeedStr = [NSString stringWithFormat:@"%.2fkb/s", self.playerContext.controlHandler.downloadSpeed * 1.0/1000];
+    NSString *downSpeedStr = [NSString stringWithFormat:@"%.2fkb/s", self.myPlayerView.controlHandler.downloadSpeed * 1.0/1000];
 
     NSArray *array = @[statusStr,firstVideoTimeStr,renderFPSStr,downSpeedStr];
 
-    long bufferPositon = self.playerContext.controlHandler.bufferPostion;
+//    long bufferPositon = self.playerContext.controlHandler.bufferPostion;
+    long bufferPositon = self.myPlayerView.controlHandler.bufferPostion;
     NSString *fileUnit = @"ms";
 
     NSString *fileSizeStr = [NSString stringWithFormat:@"%d%@", bufferPositon, fileUnit];
@@ -368,7 +382,8 @@ QIPlayerRenderListener
                                        @(QPLAYER_STATE_SEEKING):@"seek",
                                        @(QPLAYER_STATE_COMPLETED):@"Completed"
                                        };
-    return statusDictionary[@(self.playerContext.controlHandler.currentPlayerState)];
+//    return statusDictionary[@(self.playerContext.controlHandler.currentPlayerState)];
+    return  statusDictionary[@(self.myPlayerView.controlHandler.currentPlayerState)];;
 
 }
 
@@ -376,12 +391,15 @@ QIPlayerRenderListener
 
 
 - (void)addPlayerMaskView{
-    self.maskView = [[QNPlayerMaskView alloc] initWithFrame:CGRectMake(0, 0, PLAYER_PORTRAIT_WIDTH, PLAYER_PORTRAIT_HEIGHT) player:self.playerContext isLiving:NO renderView:self.myRenderView];
+//    self.maskView = [[QNPlayerMaskView alloc] initWithFrame:CGRectMake(0, 0, PLAYER_PORTRAIT_WIDTH, PLAYER_PORTRAIT_HEIGHT) player:self.playerContext isLiving:NO renderView:self.myRenderView];
+    self.maskView = [[QNPlayerMaskView alloc] initWithFrame:CGRectMake(0, 0, PLAYER_PORTRAIT_WIDTH, PLAYER_PORTRAIT_HEIGHT) player:self.myPlayerView isLiving:NO];
     
-    self.maskView.center = self.myRenderView.center;
+//    self.maskView.center = self.myRenderView.center;
+    self.maskView.center = self.myPlayerView.center;
     self.maskView.delegate = self;
     self.maskView.backgroundColor = PL_COLOR_RGB(0, 0, 0, 0.35);
-    [self.view insertSubview:_maskView aboveSubview:self.myRenderView];
+//    [self.view insertSubview:_maskView aboveSubview:self.myRenderView];
+        [self.view insertSubview:_maskView aboveSubview:self.myPlayerView];
 
     [self.maskView.qualitySegMc addTarget:self action:@selector(qualityAction:) forControlEvents:UIControlEventValueChanged];
 }
@@ -394,8 +412,8 @@ QIPlayerRenderListener
         [self forceOrientationLandscape:NO];
         _toastView.frame = CGRectMake(0, PL_SCREEN_HEIGHT-300, 200, 300);
     } else{
-        [self.playerContext.controlHandler stop];
- 
+//        [self.playerContext.controlHandler stop];
+        [self.myPlayerView.controlHandler stop];
         [self.durationTimer invalidate];
         self.durationTimer = nil;
         
@@ -419,8 +437,9 @@ QIPlayerRenderListener
     QMediaModel *model = [[QMediaModel alloc] init];
     model.streamElements = _playerModels[_selectedIndex].streamElements;
     model.isLive = _playerModels[_selectedIndex].isLive;
-    
-    [_playerContext.controlHandler playMediaModel:model startPos:[[QDataHandle shareInstance] getConfiguraPostion]];
+//
+//    [_playerContext.controlHandler playMediaModel:model startPos:[[QDataHandle shareInstance] getConfiguraPostion]];
+    [self.myPlayerView.controlHandler playMediaModel:model startPos:[[QDataHandle shareInstance] getConfiguraPostion]];
     [_maskView setPlayButtonState:YES];
 
 }
@@ -453,13 +472,13 @@ QIPlayerRenderListener
             [[UIDevice currentDevice] setValue:@(UIInterfaceOrientationLandscapeLeft) forKey:@"orientation"];
         }
         [self.urlListTableView removeFromSuperview];
-        self.myRenderView.frame = CGRectMake(0, 0, PL_SCREEN_WIDTH, PL_SCREEN_HEIGHT);
+        self.myPlayerView.frame = CGRectMake(0, 0, PL_SCREEN_WIDTH, PL_SCREEN_HEIGHT);
         self.maskView.frame = CGRectMake(0, 0, PL_SCREEN_WIDTH, PL_SCREEN_HEIGHT);
     } else {
         [self.navigationController setNavigationBarHidden:NO animated:NO];
         [[UIDevice currentDevice] setValue:@(UIDeviceOrientationPortrait) forKey:@"orientation"];
         [self.view addSubview:_urlListTableView];
-        self.myRenderView.frame = CGRectMake(0, _topSpace, PLAYER_PORTRAIT_WIDTH, PLAYER_PORTRAIT_HEIGHT);
+        self.myPlayerView.frame = CGRectMake(0, _topSpace, PLAYER_PORTRAIT_WIDTH, PLAYER_PORTRAIT_HEIGHT);
         self.maskView.frame = CGRectMake(0, _topSpace, PLAYER_PORTRAIT_WIDTH, PLAYER_PORTRAIT_HEIGHT);
     }
     
@@ -501,46 +520,46 @@ QIPlayerRenderListener
     
     if ([classModel.classKey isEqualToString:@"PLPlayerOption"]) {
         if ([configureModel.configuraKey containsString:@"播放速度"]) {
-            [self.playerContext.controlHandler setSpeed:[configureModel.configuraValue[index] floatValue]];
+            [self.myPlayerView.controlHandler setSpeed:[configureModel.configuraValue[index] floatValue]];
         }
 
         if ([configureModel.configuraKey containsString:@"播放起始"]){
 
         } else if ([configureModel.configuraKey containsString:@"Decoder"]) {
-            [self.playerContext.controlHandler setDecoderType:(QPlayerDecoder)index];
+            [self.myPlayerView.controlHandler setDecoderType:(QPlayerDecoder)index];
             
             
         } else if ([configureModel.configuraKey containsString:@"Seek"]) {
-            [self.playerContext.controlHandler  setSeekMode:index];
+            [self.myPlayerView.controlHandler  setSeekMode:index];
 
         } else if ([configureModel.configuraKey containsString:@"Start Action"]) {
-            [self.playerContext.controlHandler setStartAction:(QPlayerStart)index];
+            [self.myPlayerView.controlHandler setStartAction:(QPlayerStart)index];
             
         } else if ([configureModel.configuraKey containsString:@"Render ratio"]) {
-            [self.playerContext.renderHandler setRenderRatio:(QPlayerRenderRatio)(index + 1)];
+            [self.myPlayerView.renderHandler setRenderRatio:(QPlayerRenderRatio)(index + 1)];
             
         } else if ([configureModel.configuraKey containsString:@"色盲模式"]) {
-            [self.playerContext.renderHandler setBlindType:(QPlayerBlind)index];
+            [self.myPlayerView.renderHandler setBlindType:(QPlayerBlind)index];
         }
         else if ([configureModel.configuraKey containsString:@"SEI"]) {
             if (index == 0) {
                 
-                [self.playerContext.controlHandler setSEIEnable:YES];
+                [self.myPlayerView.controlHandler setSEIEnable:YES];
             }else{
-                [self.playerContext.controlHandler setSEIEnable:NO];
+                [self.myPlayerView.controlHandler setSEIEnable:NO];
             }
         }
         else if ([configureModel.configuraKey containsString:@"鉴权"]) {
             if (index == 0) {
-                [self.playerContext.controlHandler forceAuthenticationFromNetwork];
+                [self.myPlayerView.controlHandler forceAuthenticationFromNetwork];
             }
         }
         else if ([configureModel.configuraKey containsString:@"后台播放"]){
             if (index == 0) {
-                [self.playerContext.controlHandler setBackgroundPlayEnable:YES];
+                [self.myPlayerView.controlHandler setBackgroundPlayEnable:YES];
             }
             else{
-                [self.playerContext.controlHandler setBackgroundPlayEnable:NO];
+                [self.myPlayerView.controlHandler setBackgroundPlayEnable:NO];
             }
         }
     }
@@ -551,7 +570,7 @@ QIPlayerRenderListener
 - (void)scanQRResult:(NSString *)qrString isLive:(BOOL)isLive{
 
     if (!isLive) {
-        [_playerContext.controlHandler resumeRender];
+        [self.myPlayerView.controlHandler resumeRender];
     }
     NSURL *url;
     if (qrString) {
@@ -585,8 +604,8 @@ QIPlayerRenderListener
 
 - (void)scanCodeAction:(UIButton *)scanButton {
     
-    if (_playerContext.controlHandler.currentPlayerState == QPLAYER_STATE_PLAYING) {
-        [_playerContext.controlHandler pauseRender];
+    if (self.myPlayerView.controlHandler.currentPlayerState == QPLAYER_STATE_PLAYING) {
+        [self.myPlayerView.controlHandler pauseRender];
     }
     self.scanClick = YES;
     QNScanViewController *scanViewController = [[QNScanViewController alloc] init];
@@ -628,8 +647,8 @@ QIPlayerRenderListener
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSURL *selectedURL = [NSURL URLWithString:_playerModels[indexPath.row].streamElements[0].url];
-    if (_playerContext.controlHandler.currentPlayerState == QPLAYER_STATE_PLAYING) {
-        [_playerContext.controlHandler pauseRender];
+    if (self.myPlayerView.controlHandler.currentPlayerState == QPLAYER_STATE_PLAYING) {
+        [self.myPlayerView.controlHandler pauseRender];
     }
     
     _selectedIndex = indexPath.row;
@@ -668,9 +687,9 @@ QIPlayerRenderListener
     }
     
     if ([[QDataHandle shareInstance] getAuthenticationState]) {
-        [self.playerContext.controlHandler forceAuthenticationFromNetwork];
+        [self.myPlayerView.controlHandler forceAuthenticationFromNetwork];
     }
-    [_playerContext.controlHandler playMediaModel:model startPos:[[QDataHandle shareInstance] getConfiguraPostion]];
+    [self.myPlayerView.controlHandler playMediaModel:model startPos:[[QDataHandle shareInstance] getConfiguraPostion]];
     [_maskView setPlayButtonState:NO];
     [self judgeWeatherIsLiveWithURL:selectedURL];
     
@@ -807,7 +826,7 @@ QIPlayerRenderListener
     NSArray<NSString*> *segmentedArray = [[NSArray alloc]initWithObjects:@"1080p",@"720p",@"480p",@"270p",nil];
 //    
 //    [self.playerContext.controlHandler switchQuality:model.streamElements[index]];
-    BOOL switchQualityBool =[self.playerContext.controlHandler switchQuality:model.streamElements[index].userType urlType:model.streamElements[index].urlType quality:model.streamElements[index].quality immediately:model.isLive];
+    BOOL switchQualityBool =[self.myPlayerView.controlHandler switchQuality:model.streamElements[index].userType urlType:model.streamElements[index].urlType quality:model.streamElements[index].quality immediately:model.isLive];
     if (!switchQualityBool) {
         self.maskView.qualitySegMc.selectedSegmentIndex = self.UpQualityIndex;
 
