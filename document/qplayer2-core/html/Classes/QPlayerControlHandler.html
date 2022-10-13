@@ -110,6 +110,8 @@
 		
 		<option value="//api/name/forceAuthenticationFromNetwork">- forceAuthenticationFromNetwork</option>
 		
+		<option value="//api/name/getBackgroundPlayEnable">- getBackgroundPlayEnable</option>
+		
 		<option value="//api/name/getCurrentQuality:urlType:">- getCurrentQuality:urlType:</option>
 		
 		<option value="//api/name/getSwitchingQuality:urlType:">- getSwitchingQuality:urlType:</option>
@@ -121,6 +123,8 @@
 		<option value="//api/name/new">- new</option>
 		
 		<option value="//api/name/pauseRender">- pauseRender</option>
+		
+		<option value="//api/name/playMediaItem:">- playMediaItem:</option>
 		
 		<option value="//api/name/playMediaModel:startPos:">- playMediaModel:startPos:</option>
 		
@@ -185,6 +189,8 @@
 		<option value="//api/name/resumeRender">- resumeRender</option>
 		
 		<option value="//api/name/seek:">- seek:</option>
+		
+		<option value="//api/name/setBackgroundPlayEnable:">- setBackgroundPlayEnable:</option>
 		
 		<option value="//api/name/setDecoderType:">- setDecoderType:</option>
 		
@@ -972,6 +978,115 @@
 		</div>
 	</div>
 </div><div class="section-method">
+	<a name="//api/name/playMediaItem:" title="playMediaItem:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/playMediaItem:">&ndash;&nbsp;playMediaItem:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>播放预加载资源</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (BOOL)playMediaItem:(QMediaItemContext *)<em>mediaItem</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>mediaItem</code></th>
+						<td><p>预加载实例</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>播放预加载资源</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">QPlayerControlHandler.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/getBackgroundPlayEnable" title="getBackgroundPlayEnable"></a>
+	<h3 class="method-title"><code><a href="#//api/name/getBackgroundPlayEnable">&ndash;&nbsp;getBackgroundPlayEnable</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>获取当前是否支持后台播放</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (BOOL)getBackgroundPlayEnable</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>true: 支持后台播放 false: 支持后台播放</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>获取当前是否支持后台播放</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">QPlayerControlHandler.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
 	<a name="//api/name/setSpeed:" title="setSpeed:"></a>
 	<h3 class="method-title"><code><a href="#//api/name/setSpeed:">&ndash;&nbsp;setSpeed:</a></code>
 </h3>
@@ -1187,6 +1302,64 @@
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
 				<p>设置seek方式</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">QPlayerControlHandler.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/setBackgroundPlayEnable:" title="setBackgroundPlayEnable:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/setBackgroundPlayEnable:">&ndash;&nbsp;setBackgroundPlayEnable:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>设置是否后台播放</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)setBackgroundPlayEnable:(BOOL)<em>enable</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>enable</code></th>
+						<td><p>yes后台播放，no后台播放暂停</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>设置是否后台播放</p>
 			</div>
 			
 
@@ -4128,7 +4301,7 @@
 				<footer>
 					<div class="footer-copyright">
 						
-						<p class="copyright">Copyright &copy; 2022 七牛云. All rights reserved. Updated: 2022-08-23</p>
+						<p class="copyright">Copyright &copy; 2022 七牛云. All rights reserved. Updated: 2022-10-13</p>
 						
 						
 						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2.1 (build 1334)</a>.</p>
