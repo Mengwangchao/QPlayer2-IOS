@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		50A12B6E28F804E7009B58DD /* qplayer2_core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50A12B6D28F804AD009B58DD /* qplayer2_core.framework */; platformFilter = ios; };
+		50A12B6F28F804E7009B58DD /* qplayer2_core.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 50A12B6D28F804AD009B58DD /* qplayer2_core.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		50B1F3D5289BBF7A0074E02D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50B1F3D4289BBF7A0074E02D /* Foundation.framework */; };
 		50B1F487289CC62D0074E02D /* QNConfigSegTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B1F425289CC62D0074E02D /* QNConfigSegTableViewCell.m */; };
 		50B1F488289CC62D0074E02D /* QNConfigInputTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B1F427289CC62D0074E02D /* QNConfigInputTableViewCell.m */; };
@@ -89,6 +91,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				50A12B6F28F804E7009B58DD /* qplayer2_core.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -197,6 +200,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				50B1F3D5289BBF7A0074E02D /* Foundation.framework in Frameworks */,
+				50A12B6E28F804E7009B58DD /* qplayer2_core.framework in Frameworks */,
 				616D0BA391829A738EA77F6B /* libPods-qplayer2demo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
