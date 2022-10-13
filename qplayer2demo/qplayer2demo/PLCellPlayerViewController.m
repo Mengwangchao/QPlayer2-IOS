@@ -8,7 +8,6 @@
 
 #import "PLCellPlayerViewController.h"
 #import "PLCellPlayerTableViewCell.h"
-#import "QNPlayerModel.h"
 #import "QNPlayerShortVideoMaskView.h"
 #import "QNToastView.h"
 static NSString *status[] = {
@@ -30,7 +29,9 @@ UITableViewDelegate,
 UITableViewDataSource,
 QIPlayerStateChangeListener,
 QIPlayerProgressListener,
-QIPlayerRenderListener
+QIPlayerRenderListener,
+QIMediaItemStateChangeListener,
+QIMediaItemCommandNotAllowListener
 >
 
 @property (nonatomic, strong) QPlayerContext *player;
@@ -38,7 +39,7 @@ QIPlayerRenderListener
 @property (nonatomic, strong) PLCellPlayerTableViewCell *currentCell;
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicatorView;
 
-//@property (nonatomic, strong) NSMutableArray <QMediaItemContext *>*cacheArray;
+@property (nonatomic, strong) NSMutableArray <QMediaItemContext *>*cacheArray;
 @property (nonatomic, strong) NSMutableArray<QMediaModel *> *playerModels;
 
 @property (nonatomic, assign) CGFloat topSpace;
@@ -52,24 +53,35 @@ QIPlayerRenderListener
 
 - (void)dealloc {
     
-    [self.player.controlHandler stop];
-//    for (int i = 0; i < _cacheArray.count; i ++) {
-//        QMediaItemContext *item = _cacheArray[i];
-//       BOOL aa =  [item.controlHandler stop];
-//        NSLog(@"----%d",aa);
-//    }
-//    [_cacheArray removeAllObjects];
     NSLog(@"PLCellPlayerViewController - dealloc");
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    
     [self.player.controlHandler stop];
+    for (int i = 0; i < _cacheArray.count; i ++) {
+        QMediaItemContext *item = _cacheArray[i];
+       BOOL aa =  [item.controlHandler stop];
+        NSLog(@"----%d",aa);
+    }
+    _toastView = nil;
+    _currentCell = nil;
+    [_playerModels removeAllObjects];
+    [_cacheArray removeAllObjects];
+    [self.player.controlHandler playerRelease];
+    self.myRenderView = nil;
+    self.player = nil;
+    _playerModels = nil;
+    _cacheArray = nil;
+    
 }
 
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:NO];
+    
 //    self.navigationController.navigationBar.barTintColor = PL_SEGMENT_BG_COLOR;
 
 }
@@ -77,8 +89,7 @@ QIPlayerRenderListener
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-//    self.cacheArray = [NSMutableArray array];
+    self.cacheArray = [NSMutableArray array];
     
     // Do any additional setup after loading the view.
 
@@ -120,17 +131,18 @@ QIPlayerRenderListener
     _playerModels = [NSMutableArray array];
    
     for (NSDictionary *dic in urlArray) {
-        QMediaModel *modle = [[QMediaModel alloc] init];
-        [modle setValuesForKeysWithDictionary:dic];
-            
-        NSMutableArray <QStreamElement*> *streams = [NSMutableArray array];
+
+        QMediaModel *modle = [[QMediaModel alloc]init:[NSString stringWithFormat:@"%@",[dic valueForKey:@"isLive"]].intValue  == 0? NO : YES];
         for (NSDictionary *elDic in dic[@"streamElements"]) {
-            QStreamElement *subModle = [[QStreamElement alloc] init];
-            [subModle setValuesForKeysWithDictionary:elDic];
-            [streams addObject:subModle];
+            [modle addStreamElements:[NSString stringWithFormat:@"%@",[elDic valueForKey:@"userType"]]
+                             urlType:[NSString stringWithFormat:@"%@",[elDic valueForKey:@"urlType"]].intValue
+                             url:[NSString stringWithFormat:@"%@",[elDic valueForKey:@"url"]]
+                             quality:[NSString stringWithFormat:@"%@",[elDic valueForKey:@"quality"]].intValue
+                             isSelected:[NSString stringWithFormat:@"%@",[elDic valueForKey:@"isSelected"]].intValue == 0?NO : YES
+                             backupUrl:[NSString stringWithFormat:@"%@",[elDic valueForKey:@"backupUrl"]]
+                             referer:[NSString stringWithFormat:@"%@",[elDic valueForKey:@"referer"]]
+                             renderType:[NSString stringWithFormat:@"%@",[elDic valueForKey:@"renderType"]].intValue];
         }
-        
-        modle.streamElements = streams;
         [_playerModels addObject:modle];
     }
     
@@ -150,6 +162,8 @@ QIPlayerRenderListener
     [self.view addSubview:_toastView];
     
     [self playerContextAllCallBack];
+    
+    
 }
 
 - (void)setUpPlayer{
@@ -164,13 +178,12 @@ QIPlayerRenderListener
 //    NSString *path = [documentsDir stringByAppendingPathComponent:@"me"];
     
 
-    self.myRenderView = [[RenderView alloc]init];
-//    QPlayerContext *player = [[QPlayerContext alloc]initPlayerAppInfo:info storageDir:documentsDir logLevel:LOG_VERBOSE];
+    self.myRenderView = [[RenderView alloc]initWithFrame:CGRectMake(0, 0, 0, 0)];
     QPlayerContext *player = [[QPlayerContext alloc]initPlayerAPPVersion:@"" localStorageDir:documentsDir logLevel:LOG_VERBOSE];
     //设置为软解
 //    [player.controlHandler setDecoderType:QPLAYER_DECODER_SETTING_SOFT_PRIORITY];
     self.player = player;
-    [self.myRenderView attachPlayerContext:self.player.renderHandler];
+    [self.myRenderView attachPlayerContext:self.player];
     
     
     QMediaModel *model = [[QMediaModel alloc] init];
@@ -238,8 +251,6 @@ QIPlayerRenderListener
 
 -(void)onFirstFrameRendered:(QPlayerContext *)context elapsedTime:(NSInteger)elapsedTime{
     NSLog(@"预加载首帧时间----%d",elapsedTime);
-    
-    
 
     dispatch_async(dispatch_get_main_queue(), ^{
         _currentCell.playerView = _myRenderView;
@@ -248,29 +259,22 @@ QIPlayerRenderListener
     
     [self updateCache:_currentCell.model];
 }
--(void)onStreamOpen:(QPlayerContext *)context duration:(int64_t)duration{
-    
-    NSLog(@"-------------streamOpen ----");
-}
--(void)onOpenFailed:(QPlayerContext *)context userType:(NSString *)userType urlType:(QPlayerURLType)urlType url:(NSString *)url error:(QPlayerOpenError)error{
-    
-    NSLog(@"-------------streamOpenError -----");
-}
+
 
 #pragma mark - mediaItemDelegate
 
-//-(void)addAllCallBack:(QMediaItemContext *)mediaItem{
-////    [mediaItem.controlHandler addMediaItemStateChangeListener:self];
-////    [mediaItem.controlHandler addMediaItemCommandNotAllowListener:self];
-//
-//
-//}
-//-(void)onStateChanged:(QMediaItemContext *)context state:(QMediaItemState)state{
-////    NSLog(@"-------------预加载--onStateChanged -- %d---%@",state,context.controlHandler.media_model.streamElements[0].url);
-//}
-//-(void)onCommandNotAllow:(QMediaItemContext *)context commandName:(NSString *)commandName state:(QMediaItemState)state{
-//    NSLog(@"-------------预加载--notAllow---%@",commandName);
-//}
+-(void)addAllCallBack:(QMediaItemContext *)mediaItem{
+    [mediaItem.controlHandler addMediaItemStateChangeListener:self];
+    [mediaItem.controlHandler addMediaItemCommandNotAllowListener:self];
+
+
+}
+-(void)onStateChanged:(QMediaItemContext *)context state:(QMediaItemState)state{
+    NSLog(@"-------------预加载--onStateChanged -- %d---%@",state,context.controlHandler.media_model.streamElements[0].url);
+}
+-(void)onCommandNotAllow:(QMediaItemContext *)context commandName:(NSString *)commandName state:(QMediaItemState)state{
+    NSLog(@"-------------预加载--notAllow---%@",commandName);
+}
 #pragma mark - tableView delegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -305,9 +309,9 @@ QIPlayerRenderListener
 
 // 松手时已经静止,只会调用scrollViewDidEndDragging
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-//    if (decelerate == NO) { // scrollView已经完全静止
-//        [self handleScroll];
-//    }
+    if (decelerate == NO) { // scrollView已经完全静止
+        [self handleScroll];
+    }
 }
 
 // 松手时还在运动, 先调用scrollViewDidEndDragging,在调用scrollViewDidEndDecelerating
@@ -359,19 +363,24 @@ QIPlayerRenderListener
         }
     } else{
 
-//        QMediaItemContext *item = [self findCrashMediaItemsOf:cell.model];
-//        if (item) {
-//            [self.player.controlHandler playMediaItem:item];
-//            NSLog(@"预加载--播放缓存---%@",item.controlHandler.media_model.streamElements[0].url);
+        QMediaItemContext *item = [self findCrashMediaItemsOf:cell.model];
+        if (item) {
+            BOOL playBool = [self.player.controlHandler playMediaItem:item];
+            if (!playBool) {
+                NSLog(@"播放错误");
+            }
+            NSLog(@"预加载--播放缓存---%@",item.controlHandler.media_model.streamElements[0].url);
             
-//        }else{
-//            QMediaModel *model = [[QMediaModel alloc] init];
-//            model.streamElements = cell.model.streamElements;
-//            model.isLive = _playerModels.firstObject.isLive;
-//            [self.player.controlHandler playMediaModel:model startPos:0];
-            
-//            NSLog(@"预加载--new---%@",item.controlHandler.media_model.streamElements[0].url);
-//        }
+        }else if(_currentCell != nil){
+            QMediaModel *model = [[QMediaModel alloc] init];
+            model.streamElements = cell.model.streamElements;
+            model.isLive = _playerModels.firstObject.isLive;
+            BOOL playBool = [self.player.controlHandler playMediaModel:model startPos:0];
+            if (!playBool) {
+                NSLog(@"播放错误");
+            }
+            NSLog(@"预加载--new---%@",item.controlHandler.media_model.streamElements[0].url);
+        }
     
         _currentCell = cell;
     }
@@ -389,10 +398,10 @@ QIPlayerRenderListener
     model.isLive = playerModel.isLive;
     
     // 预加载
-//    QMediaItemContext *item = [[QMediaItemContext alloc] initItemComtextStorageDir:documentsDir logLevel:LOG_VERBOSE];
-//    [self addAllCallBack:item];
-//    [item.controlHandler start:model startPos:0];
-//    [self.cacheArray addObject:item];
+    QMediaItemContext *item = [[QMediaItemContext alloc] initItemComtextStorageDir:documentsDir logLevel:LOG_VERBOSE];
+    [self addAllCallBack:item];
+    [item.controlHandler start:model startPos:0];
+    [self.cacheArray addObject:item];
     
     NSLog(@"预加载--addcrash -- %@",playerModel.streamElements.firstObject.url);
     
@@ -401,22 +410,22 @@ QIPlayerRenderListener
 -(int)indexPlayerModelsOf:(QMediaItemContext *)item{
     for (int i = 0; i < _playerModels.count; i ++) {
         QMediaModel *modle = _playerModels[i];
-//        if (modle.isLive == item.controlHandler.media_model.isLive && modle.streamElements == item.controlHandler.media_model.streamElements) {
-//            return i;
-//        }
+        if (modle.isLive == item.controlHandler.media_model.isLive && modle.streamElements == item.controlHandler.media_model.streamElements) {
+            return i;
+        }
     }
     return -1;
 }
 
-//-(QMediaItemContext *)findCrashMediaItemsOf:(QMediaModel *)modle{
-//    for (int i = 0; i < _cacheArray.count; i ++) {
-//        QMediaItemContext *item = _cacheArray[i];
-//        if (modle.isLive == item.controlHandler.media_model.isLive && modle.streamElements == item.controlHandler.media_model.streamElements) {
-//            return item;
-//        }
-//    }
-//    return NULL;
-//}
+-(QMediaItemContext *)findCrashMediaItemsOf:(QMediaModel *)modle{
+    for (int i = 0; i < _cacheArray.count; i ++) {
+        QMediaItemContext *item = _cacheArray[i];
+        if (modle.isLive == item.controlHandler.media_model.isLive && modle.streamElements == item.controlHandler.media_model.streamElements) {
+            return item;
+        }
+    }
+    return NULL;
+}
 
 
 -(void)updateCache:(QMediaModel *)model{
@@ -424,26 +433,27 @@ QIPlayerRenderListener
     NSArray *realCacheArray = [self getRealCacheIndexArray:model];
     
     NSMutableArray *delArray = [NSMutableArray array];
-    NSMutableArray *addArray = [NSMutableArray array];
-//
-//    for (int i = 0; i < _cacheArray.count; i ++) {//
-//        QMediaItemContext *model0 = _cacheArray[i];
-//        int index = (int)[self indexPlayerModelsOf:model0];
-//        if (![realCacheArray containsObject:@(index)]) {// _cacheArray 独有
-//            [delArray addObject:model0];
-//
-//        }
-//    }
-//
-//    for (int i = 0; i < realCacheArray.count; i ++) {//
-//        int index = [realCacheArray[i] intValue];
-//        QMediaModel *model0 = _playerModels[index];
-//        if (![self findCrashMediaItemsOf:model0]) {// realCacheArray 独有
-//            [self AddToCash:_playerModels[index]];
-//        }
-//    }
-//
-//    [_cacheArray removeObjectsInArray:delArray];
+
+    for (int i = 0; i < _cacheArray.count; i ++) {//
+        QMediaItemContext *model0 = _cacheArray[i];
+        int index = (int)[self indexPlayerModelsOf:model0];
+        if (![realCacheArray containsObject:@(index)]) {// _cacheArray 独有
+            [delArray addObject:model0];
+            [model0.controlHandler stop];
+
+        }
+    }
+
+    for (int i = 0; i < realCacheArray.count; i ++) {//
+        int index = [realCacheArray[i] intValue];
+        QMediaModel *model0 = _playerModels[index];
+        if (![self findCrashMediaItemsOf:model0]) {// realCacheArray 独有
+            [self AddToCash:_playerModels[index]];
+        }
+    }
+    [_cacheArray removeObjectsInArray:delArray];
+    [delArray removeAllObjects];
+    delArray = nil;
 }
 
 // 前 1 后 3
@@ -462,24 +472,19 @@ QIPlayerRenderListener
     if (index == 0) {
         realCacheArray = @[@1,@2,@3];
     }
-    if (index == 1) {
-        realCacheArray = @[@0,@1,@2,@3];
-    }
-    if (index == 2) {
-        realCacheArray = @[@1,@2,@3,@4];
-    }
+
     if (index == _playerModels.count-1) {
         realCacheArray = @[@(index-1)];
     }
     if (index == _playerModels.count-2) {
-        realCacheArray = @[@(index-1),@(index),@(index + 1)];
+        realCacheArray = @[@(index-1),@(index + 1)];
     }
     if (index == _playerModels.count-3) {
-        realCacheArray = @[@(index-1),@(index),@(index + 1),@(index + 2)];
+        realCacheArray = @[@(index-1),@(index + 1),@(index + 2)];
     }
     
     if (realCacheArray.count == 0) {//之前没有命中
-        realCacheArray = @[@(index -1),@(index),@(index + 1),@(index + 2),@(index + 3)];
+        realCacheArray = @[@(index -1),@(index + 1),@(index + 2),@(index + 3)];
     }
     
     return realCacheArray;
@@ -492,16 +497,16 @@ QIPlayerRenderListener
 }
 
 
-- (void)addActivityIndicatorView {
-    if (self.activityIndicatorView) {
-        return;
-    }
-    UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    activityIndicatorView.center = CGPointMake(CGRectGetMidX(self.myRenderView.bounds), CGRectGetMidY(self.myRenderView.bounds));
-    [self.myRenderView addSubview:activityIndicatorView];
-    [activityIndicatorView stopAnimating];
-    self.activityIndicatorView = activityIndicatorView;
-}
+//- (void)addActivityIndicatorView {
+//    if (self.activityIndicatorView) {
+//        return;
+//    }
+//    UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+//    activityIndicatorView.center = CGPointMake(CGRectGetMidX(self.myRenderView.bounds), CGRectGetMidY(self.myRenderView.bounds));
+//    [self.myRenderView addSubview:activityIndicatorView];
+//    [activityIndicatorView stopAnimating];
+//    self.activityIndicatorView = activityIndicatorView;
+//}
 
 - (UIImage *)originImage:(UIImage *)image scaleToSize:(CGSize)size{
     UIGraphicsBeginImageContext(size);
