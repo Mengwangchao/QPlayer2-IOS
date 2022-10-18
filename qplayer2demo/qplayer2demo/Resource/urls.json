@@ -6,7 +6,7 @@
             {
                 "userType": "",
                 "urlType": 0,
-                "url": "http://demo-videos.qnsdk.com/qiniu-1080p.mp4",
+                "url": "https://playback-vpaas.cloudlinks.cn/vas/ja/v1/playback/m3u8?ownerid=9223372043366327673&deviceid=35180655&startTime=1663599029&endTime=1663599037&sign=ee5d3c6606d235c7dca60c61315f6127929a3154",
                 "quality": 1080,
                 "isSelected": 1,
                 "backupUrl": "",

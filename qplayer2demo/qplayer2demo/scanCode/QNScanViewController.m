@@ -161,7 +161,7 @@
             [self performSelectorOnMainThread:@selector(stopScanQrCode) withObject:nil waitUntilDone:NO];
             
             if (![_scanResult hasPrefix:@"http://"] && ![_scanResult hasPrefix:@"https://"] && ![_scanResult hasPrefix:@"rtmp://"] && ![_scanResult hasPrefix:@"srt://"]) {
-                UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:@"错误" message:@"播放地址不规范，目前支持 http(s) 与 rtmp 协议！" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:@"错误" message:@"播放地址不规范，目前支持 http(s)、srt 与 rtmp 协议！" preferredStyle:UIAlertControllerStyleAlert];
                 UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                     if ([self.delegate respondsToSelector:@selector(scanQRResult:isLive:)]) {
                         [self.delegate scanQRResult:nil isLive:NO];
