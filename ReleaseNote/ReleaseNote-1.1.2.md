@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:ReleaseNote/ReleaseNote-1.1.0.md
-# 1.1.0 ReleaseNote
-========
 # 1.1.2 ReleaseNote
->>>>>>>> 86eee68 (版本更新为1.1.2):ReleaseNote/ReleaseNote-1.1.2.md
 #### 新增能力
 
 - 支持预加载功能
