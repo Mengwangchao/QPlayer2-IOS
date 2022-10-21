@@ -90,7 +90,6 @@ QIMediaItemCommandNotAllowListener
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.cacheArray = [NSMutableArray array];
-    
     // Do any additional setup after loading the view.
 
     self.title = @"短视频";
@@ -256,8 +255,8 @@ QIMediaItemCommandNotAllowListener
         _currentCell.playerView = _myRenderView;
         
     });
-    
-    [self updateCache:_currentCell.model];
+//
+//    [self.cacheArray removeObject:<#(nonnull QMediaItemContext *)#>];
 }
 
 
@@ -291,7 +290,6 @@ QIMediaItemCommandNotAllowListener
     QMediaModel *model = _playerModels[indexPath.row];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.model = model;
-       
     return cell;
 }
 
@@ -322,6 +320,7 @@ QIMediaItemCommandNotAllowListener
 
 -(void)handleScroll{
     // 找到下一个要播放的cell(最在屏幕中心的)
+    
     PLCellPlayerTableViewCell *finnalCell = nil;
     NSArray *visiableCells = [self.tableView visibleCells];
     CGFloat gap = MAXFLOAT;
@@ -337,13 +336,16 @@ QIMediaItemCommandNotAllowListener
         }
     }
 
+    
     // 注意, 如果正在播放的cell和finnalCell是同一个cell, 不应该在播放
     if (finnalCell != nil && _currentCell != finnalCell)  {
 
         [self updatePlayCell:finnalCell scroll:YES];
-
+        
+        [self updateCache:finnalCell.model];
         return;
     }
+    
 //    [self updatePlayCell:finnalCell scroll:YES];
 }
 
@@ -362,10 +364,11 @@ QIMediaItemCommandNotAllowListener
             }
         }
     } else{
-
+//        NSLog(@"url is :  ------%@-----",cell.model.streamElements[0].url);
         QMediaItemContext *item = [self findCrashMediaItemsOf:cell.model];
         if (item) {
             BOOL playBool = [self.player.controlHandler playMediaItem:item];
+            [self.cacheArray removeObject:item];
             if (!playBool) {
                 NSLog(@"播放错误");
             }
@@ -470,21 +473,21 @@ QIMediaItemCommandNotAllowListener
 
     int index = (int)[_playerModels indexOfObject:model];
     if (index == 0) {
-        realCacheArray = @[@1,@2,@3];
+        realCacheArray = @[@0,@1,@2,@3];
     }
 
     if (index == _playerModels.count-1) {
-        realCacheArray = @[@(index-1)];
+        realCacheArray = @[@(index-1),@(index)];
     }
     if (index == _playerModels.count-2) {
-        realCacheArray = @[@(index-1),@(index + 1)];
+        realCacheArray = @[@(index-1),@(index),@(index + 1)];
     }
     if (index == _playerModels.count-3) {
-        realCacheArray = @[@(index-1),@(index + 1),@(index + 2)];
+        realCacheArray = @[@(index-1),@(index),@(index + 1),@(index + 2)];
     }
     
     if (realCacheArray.count == 0) {//之前没有命中
-        realCacheArray = @[@(index -1),@(index + 1),@(index + 2),@(index + 3)];
+        realCacheArray = @[@(index -1),@(index),@(index + 1),@(index + 2),@(index + 3)];
     }
     
     return realCacheArray;
@@ -497,16 +500,7 @@ QIMediaItemCommandNotAllowListener
 }
 
 
-//- (void)addActivityIndicatorView {
-//    if (self.activityIndicatorView) {
-//        return;
-//    }
-//    UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-//    activityIndicatorView.center = CGPointMake(CGRectGetMidX(self.myRenderView.bounds), CGRectGetMidY(self.myRenderView.bounds));
-//    [self.myRenderView addSubview:activityIndicatorView];
-//    [activityIndicatorView stopAnimating];
-//    self.activityIndicatorView = activityIndicatorView;
-//}
+
 
 - (UIImage *)originImage:(UIImage *)image scaleToSize:(CGSize)size{
     UIGraphicsBeginImageContext(size);

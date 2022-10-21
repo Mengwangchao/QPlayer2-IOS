@@ -115,6 +115,8 @@
 }
 
 - (void)enterCellPlayerAction:(UIButton *)button {
+//    QNShortVideoViewController *cellPlayerViewController = [[QNShortVideoViewController alloc] init];
+    
     PLCellPlayerViewController *cellPlayerViewController = [[PLCellPlayerViewController alloc] init];
     [self.navigationController pushViewController:cellPlayerViewController animated:YES];
 }
