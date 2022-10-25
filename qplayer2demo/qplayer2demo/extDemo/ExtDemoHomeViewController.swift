@@ -21,8 +21,7 @@ class myICommonPlayerScreenChangedListener:ICommonPlayerScreenChangedListener{
     }
 }
 class myICommonPlayerEnvironment:ICommonPlayerEnvironment{
-
-    
+ 
     var name: String
     
     var serviceTypes: Set<String>
@@ -72,6 +71,12 @@ class ExtDemoHomeViewController: UIViewController {
                 .setRootUIContanier(rootContainer: view)
                 .enableScreenRender()
                 .build()
+            var config2 = try CommonPlayerConfig<Any, myIlogic, CommonPlayableParams, CommonVideoParams>.CommonPlayerCoreConfig.Builder()
+                .setPlayerDataSource(playerDataSource: self.mPlayerDataSource)
+                .addEnviroment(name: "config2", enviroment: myICommonPlayerEnvironment(name: "config2", serviceTypes: service))
+                .setRootUIContanier(rootContainer: view)
+                .enableScreenRender()
+                .build()
             self.mCommonPlayer = CommonPlayer(playerConfig: config)
             var videoArray = self.mPlayerDataSource.getVideoParamsList()
             var video = videoArray[0]
@@ -93,7 +98,9 @@ class ExtDemoHomeViewController: UIViewController {
         var video = videoArray[0]
         var param = self.mPlayerDataSource.getPlayableParams(videoId: video.id, index: 1)
         if param != nil && flag == 1{
-            self.mCommonPlayer.playerVideoSwitcher.switchPlayableParamsSubject(playableParams: param!)
+//            self.mCommonPlayer.playerVideoSwitcher.switchPlayableParamsSubject(playableParams: param!)
+            
+            
             flag+=1
         }
         else{
