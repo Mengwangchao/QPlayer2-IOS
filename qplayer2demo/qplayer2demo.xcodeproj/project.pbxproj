@@ -73,6 +73,8 @@
 		50B1F4C3289CC62D0074E02D /* pl_rotate@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 50B1F47F289CC62D0074E02D /* pl_rotate@3x.png */; };
 		50B1F4C5289CC62D0074E02D /* QNHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B1F483289CC62D0074E02D /* QNHomeViewController.m */; };
 		616D0BA391829A738EA77F6B /* libPods-qplayer2demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C0C2D1DB69E96781D80C1A2 /* libPods-qplayer2demo.a */; };
+		BAC9D66C294B1656001D1019 /* qplayer2_ext.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAC9D669294B1625001D1019 /* qplayer2_ext.framework */; };
+		BAC9D66D294B1656001D1019 /* qplayer2_ext.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BAC9D669294B1625001D1019 /* qplayer2_ext.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +85,20 @@
 			remoteGlobalIDString = CA43018B289A5D6B002FE55B;
 			remoteInfo = "qplayer2-core";
 		};
+		BAC9D668294B1625001D1019 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BAC9D662294B1625001D1019 /* qplayer2-ext.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 508443CD28C86E39009487A6;
+			remoteInfo = "qplayer2-ext";
+		};
+		BAC9D66A294B1625001D1019 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BAC9D662294B1625001D1019 /* qplayer2-ext.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 508443D728C86E39009487A6;
+			remoteInfo = "qplayer2-extTests";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -92,6 +108,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				BAC9D66D294B1656001D1019 /* qplayer2_ext.framework in Embed Frameworks */,
 				50A12B6F28F804E7009B58DD /* qplayer2_core.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -193,6 +210,9 @@
 		50B1F483289CC62D0074E02D /* QNHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QNHomeViewController.m; sourceTree = "<group>"; };
 		7C0C2D1DB69E96781D80C1A2 /* libPods-qplayer2demo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-qplayer2demo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2BDA3706EA1C6372228C6C3 /* Pods-qplayer2demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-qplayer2demo.debug.xcconfig"; path = "Target Support Files/Pods-qplayer2demo/Pods-qplayer2demo.debug.xcconfig"; sourceTree = "<group>"; };
+		BAC9D65F294B1613001D1019 /* ExtDemoHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtDemoHomeViewController.swift; sourceTree = "<group>"; };
+		BAC9D660294B1613001D1019 /* qplayer2demo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "qplayer2demo-Bridging-Header.h"; sourceTree = "<group>"; };
+		BAC9D662294B1625001D1019 /* qplayer2-ext.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "qplayer2-ext.xcodeproj"; path = "../../qplayer2-core/platform/ios/qplayer2-ext/qplayer2-ext.xcodeproj"; sourceTree = "<group>"; };
 		CA90B80F289A7AF60087543B /* qplayer2demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = qplayer2demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -202,6 +222,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				50B1F3D5289BBF7A0074E02D /* Foundation.framework in Frameworks */,
+				BAC9D66C294B1656001D1019 /* qplayer2_ext.framework in Frameworks */,
 				50A12B6E28F804E7009B58DD /* qplayer2_core.framework in Frameworks */,
 				616D0BA391829A738EA77F6B /* libPods-qplayer2demo.a in Frameworks */,
 				505448DC2923313400764693 /* CoreMotion.framework in Frameworks */,
@@ -231,6 +252,7 @@
 		50B1F41C289CC62D0074E02D /* qplayer2demo */ = {
 			isa = PBXGroup;
 			children = (
+				BAC9D65E294B1613001D1019 /* extDemo */,
 				50B1F440289CC62D0074E02D /* Assets.xcassets */,
 				50B1F481289CC62D0074E02D /* Info.plist */,
 				50B1F443289CC62D0074E02D /* LaunchScreen.storyboard */,
@@ -384,9 +406,28 @@
 			path = testSrc;
 			sourceTree = "<group>";
 		};
+		BAC9D65E294B1613001D1019 /* extDemo */ = {
+			isa = PBXGroup;
+			children = (
+				BAC9D65F294B1613001D1019 /* ExtDemoHomeViewController.swift */,
+				BAC9D660294B1613001D1019 /* qplayer2demo-Bridging-Header.h */,
+			);
+			path = extDemo;
+			sourceTree = "<group>";
+		};
+		BAC9D663294B1625001D1019 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BAC9D669294B1625001D1019 /* qplayer2_ext.framework */,
+				BAC9D66B294B1625001D1019 /* qplayer2-extTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		CA90B806289A7AF60087543B = {
 			isa = PBXGroup;
 			children = (
+				BAC9D662294B1625001D1019 /* qplayer2-ext.xcodeproj */,
 				50A12B6828F804AD009B58DD /* qplayer2-core.xcodeproj */,
 				50B1F41C289CC62D0074E02D /* qplayer2demo */,
 				CA90B810289A7AF60087543B /* Products */,
@@ -468,6 +509,10 @@
 					ProductGroup = 50A12B6928F804AD009B58DD /* Products */;
 					ProjectRef = 50A12B6828F804AD009B58DD /* qplayer2-core.xcodeproj */;
 				},
+				{
+					ProductGroup = BAC9D663294B1625001D1019 /* Products */;
+					ProjectRef = BAC9D662294B1625001D1019 /* qplayer2-ext.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -482,6 +527,20 @@
 			fileType = wrapper.framework;
 			path = qplayer2_core.framework;
 			remoteRef = 50A12B6C28F804AD009B58DD /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		BAC9D669294B1625001D1019 /* qplayer2_ext.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = qplayer2_ext.framework;
+			remoteRef = BAC9D668294B1625001D1019 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		BAC9D66B294B1625001D1019 /* qplayer2-extTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "qplayer2-extTests.xctest";
+			remoteRef = BAC9D66A294B1625001D1019 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
