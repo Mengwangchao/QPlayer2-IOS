@@ -165,8 +165,8 @@ QIPlayerSeekListener
         [modleBuilder addStreamElements:streams];
         QMediaModel *model = [modleBuilder build];
         [_playerModels addObject:model];
-        
     }
+    
 
     [self.durationTimer invalidate];
     self.durationTimer = nil;
@@ -376,9 +376,7 @@ QIPlayerSeekListener
 - (NSArray *)updateInfoArray {
     NSString *statusStr = [self updatePlayerStatus];
     NSString *firstVideoTimeStr = [NSString stringWithFormat:@"%d ms",self.firstVideoTime];
-//    NSString *renderFPSStr = [NSString stringWithFormat:@"%dfps", self.playerContext.controlHandler.fps];
     NSString *renderFPSStr = [NSString stringWithFormat:@"%dfps", self.myPlayerView.controlHandler.fps];
-//    NSString *downSpeedStr = [NSString stringWithFormat:@"%.2fkb/s", self.playerContext.controlHandler.downloadSpeed * 1.0/1000];
     NSString *downSpeedStr = [NSString stringWithFormat:@"%.2fkb/s", self.myPlayerView.controlHandler.downloadSpeed * 1.0/1000];
 
     NSArray *array = @[statusStr,firstVideoTimeStr,renderFPSStr,downSpeedStr];
@@ -793,7 +791,7 @@ QIPlayerSeekListener
 
 - (void)deleteUrlString:(UIButton *)button {
     NSInteger index = button.tag - 100;
-    UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:@"删除播放地址" message:[NSString stringWithFormat:@"亲，是否确定要删除播放地址：%@ ？", _playerModels[index]] preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:@"删除播放地址" message:[NSString stringWithFormat:@"亲，是否确定要删除播放地址：%@ ？", _playerModels[index].streamElements[0].url] preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"否" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action){
     }];
     UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"是" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
