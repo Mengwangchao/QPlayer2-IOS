@@ -10,8 +10,7 @@
 #import "QNPlayerViewController.h"
 #import "PLCellPlayerViewController.h"
 #import "QNPlayerConfigViewController.h"
-
-
+#import <qplayer2demo-Swift.h>
 #define kLogoSizeWidth (PL_SCREEN_WIDTH - 100)
 #define kLogoSizeHeight (PL_SCREEN_WIDTH - 100)*0.38
 
@@ -69,11 +68,23 @@
     [itemPlayerButton setTitle:@"初始化" forState:UIControlStateNormal];
     itemPlayerButton.titleLabel.font = PL_FONT_MEDIUM(14);
     [self.view addSubview:itemPlayerButton];
+    // 多 player 多 item
+    UIButton *extPlayerButton = [[UIButton alloc] initWithFrame:CGRectMake(70, (PL_SCREEN_HEIGHT - kLogoSizeHeight - 116)/4 + kLogoSizeHeight + 50 + 210, PL_SCREEN_WIDTH - 140, 34)];
+    extPlayerButton.backgroundColor = PL_BUTTON_BACKGROUNDCOLOR;
+    extPlayerButton.layer.cornerRadius = 3;
+    extPlayerButton.tag = 20;
+    [extPlayerButton addTarget:self action:@selector(extPlayerButtonAction:) forControlEvents:UIControlEventTouchDown];
+    [extPlayerButton setTitle:@"ext长视频" forState:UIControlStateNormal];
+    extPlayerButton.titleLabel.font = PL_FONT_MEDIUM(14);
+    [self.view addSubview:extPlayerButton];
     
 }
 
 #pragma mark - 进入各个模式
-
+-(void)extPlayerButtonAction:(UIButton *)button{
+    ExtDemoHomeViewController *extVideoController = [[ExtDemoHomeViewController alloc]init];
+    [self.navigationController pushViewController:extVideoController animated:YES];
+}
 - (void)enterPlayerAction:(UIButton *)button {
     QNPlayerViewController *playerViewController = [[QNPlayerViewController alloc] init];
 
