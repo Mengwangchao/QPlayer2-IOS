@@ -39,6 +39,7 @@ static NSString *screenTag = @"screen";
 @property (nonatomic, assign) CGSize videoEncodeSize;
 @property (nonatomic, assign) NSInteger bitrate;
 @property (nonatomic, assign) NSInteger frameRate;
+@property (nonatomic, assign) bool qplayer2Bool;
 
 - (void)publish;
 

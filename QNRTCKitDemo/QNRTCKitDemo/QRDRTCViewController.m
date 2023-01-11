@@ -28,6 +28,7 @@ UITextFieldDelegate
 @property (nonatomic, strong) UIView *buttonView;
 
 @property (nonatomic, strong) UILabel *forwardLabel;
+@property (nonatomic ,strong) QPlayerView *qplayer2;
 
 @property (nonatomic, strong) QNDirectLiveStreamingConfig *directConfig;
 
@@ -142,8 +143,29 @@ UITextFieldDelegate
         make.width.height.equalTo(self.view).multipliedBy(0.6);
     }];
     self.tableView.hidden = YES;
+    
+    if(self.qplayer2Bool){
+        
+        NSString *documentsDir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+        self.qplayer2 = [[QPlayerView alloc]initWithFrame:CGRectMake(PL_SCREEN_WIDTH -100, 300, 100, 100) APPVersion:@"" localStorageDir:documentsDir logLevel:LOG_VERBOSE];
+        [self.view addSubview:self.qplayer2];
+        UIButton *addUrl = [[UIButton alloc]initWithFrame:CGRectMake(PL_SCREEN_WIDTH -100, 420, 100, 30)];
+        [addUrl addTarget:self action:@selector(addUrlClick) forControlEvents:UIControlEventTouchUpInside];
+        [addUrl setTitle:@"开始拉流" forState:UIControlStateNormal];
+        addUrl.font = [UIFont systemFontOfSize:13.0];
+        addUrl.backgroundColor = [UIColor blackColor];
+        [addUrl setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self.view addSubview:addUrl];
+    }
 }
-
+-(void)addUrlClick{
+    
+    QMediaModelBuilder * builder = [[QMediaModelBuilder alloc]initWithIsLive:YES];
+    NSString *url = [NSString stringWithFormat:@"rtmp://pili-rtmp.qnsdk.com/sdk-live/%@",self.roomName];
+    [builder addStreamElementWithUserType:@"" urlType:QURL_TYPE_QAUDIO_AND_VIDEO url:url quality:100 isSelected:YES backupUrl:@"" referer:@"" renderType:QPLAYER_RENDER_TYPE_PLANE];
+    QMediaModel *model = builder.build;
+    [self.qplayer2.controlHandler playMediaModel:model startPos:0];
+}
 - (void)conferenceAction:(UIButton *)conferenceButton {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -157,7 +179,11 @@ UITextFieldDelegate
     [self stoptimer];
     // 离开房间
     [self.client leave];
-    
+    if(self.qplayer2Bool){
+        [self.qplayer2.controlHandler stop];
+        [self.qplayer2.controlHandler playerRelease];
+        self.qplayer2 = nil;
+    }
     [super viewDidDisappear:animated];
 }
 

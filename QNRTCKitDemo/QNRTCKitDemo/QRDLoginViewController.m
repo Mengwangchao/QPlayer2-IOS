@@ -16,7 +16,8 @@
 #import "QRDScreenMainViewController.h"
 #import "QRDPureAudioViewController.h"
 #import "QRDPlayerViewController.h"
-
+#import "QNPlayerViewController.h"
+#import <qplayer2_core/qplayer2_core.h>
 #define QRD_LOGIN_TOP_SPACE (QRD_iPhoneX ? 140: 100)
 
 @interface QRDLoginViewController ()
@@ -62,6 +63,8 @@ UITextFieldDelegate
     self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(95, QRD_LOGIN_TOP_SPACE + 192, QRD_SCREEN_WIDTH - 198, QRD_SCREEN_HEIGHT - QRD_LOGIN_TOP_SPACE - 340)];
     self.imageView.image = [UIImage imageNamed:@"qn_niu"];
     [self.view insertSubview:_imageView atIndex:0];
+    
+
 }
 
 - (void)setupLoginViewWithStorage:(BOOL)storage {
@@ -81,7 +84,7 @@ UITextFieldDelegate
 - (void)setupJoinRoomView {
     _resultCorrect = NO;
     
-    _joinRoomView = [[QRDJoinRoomView alloc] initWithFrame:CGRectMake(QRD_SCREEN_WIDTH/2 - 150, QRD_LOGIN_TOP_SPACE, 308, 310)];
+    _joinRoomView = [[QRDJoinRoomView alloc] initWithFrame:CGRectMake(QRD_SCREEN_WIDTH/2 - 150, QRD_LOGIN_TOP_SPACE, 308, 510)];
     _joinRoomView.roomTextField.delegate = self;
     NSString *roomName = [[NSUserDefaults standardUserDefaults] objectForKey:QN_ROOM_NAME_KEY];
     _joinRoomView.roomTextField.text = roomName;
@@ -95,10 +98,16 @@ UITextFieldDelegate
     [_joinRoomView.screenButton addTarget:self action:@selector(screenButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     
     [_joinRoomView.joinButton addTarget:self action:@selector(joinAction:) forControlEvents:UIControlEventTouchUpInside];
+    _joinRoomView.joinButton.tag = 10;
 
     [_joinRoomView.liveButton addTarget:self action:@selector(liveButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     
     [_joinRoomView.multiTrackButton addTarget:self action:@selector(multiTrackButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [_joinRoomView.qplayer2RTCButton addTarget:self action:@selector(joinAction:) forControlEvents:UIControlEventTouchUpInside];
+    _joinRoomView.qplayer2RTCButton.tag = 100;
+    
+    [_joinRoomView.qplayer2Button addTarget:self action:@selector(qplayer2ButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     
     _setButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _setButton.frame = CGRectMake(QRD_SCREEN_WIDTH - 36, QRD_LOGIN_TOP_SPACE - 68, 24, 24);
@@ -149,6 +158,11 @@ UITextFieldDelegate
         [self showAlertWithMessage:@"请填写昵称！"];
     }
 }
+-(void)qplayer2ButtonAction:(UIButton *)join{
+    QNPlayerViewController *playerViewController = [[QNPlayerViewController alloc] init];
+
+    [self.navigationController pushViewController:playerViewController animated:YES];
+}
 
 - (void)joinAction:(UIButton *)join {
     [self.view endEditing:YES];
@@ -187,6 +201,11 @@ UITextFieldDelegate
             // 连麦主入口
             QRDRTCViewController *rtcVC = [[QRDRTCViewController alloc] init];
             rtcVC.configDic = configDic;
+            if(join.tag == 100){
+                rtcVC.qplayer2Bool = YES;
+            }else{
+                rtcVC.qplayer2Bool = NO;
+            }
             rtcVC.modalPresentationStyle = UIModalPresentationFullScreen;
             [self presentViewController:rtcVC animated:YES completion:nil];
         }

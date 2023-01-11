@@ -11,7 +11,7 @@
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 #import <QNRTCKit/QNRTCKit.h>
-
+#import "QNHomeViewController.h"
 #import <Bugsnag.h>
 
 @interface AppDelegate () <UISplitViewControllerDelegate>
@@ -24,7 +24,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     [Bugsnag startBugsnagWithApiKey:@"5c557cf459b88bd2726b2055530eac91"];
-    
+    QNHomeViewController *loginPlayerView = [[QNHomeViewController alloc]init];
     QRDLoginViewController *loginVC = [[QRDLoginViewController alloc] init];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:loginVC];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];

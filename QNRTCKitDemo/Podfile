@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
- platform :ios, '9.0'
+ platform :ios, '10.0'
 
 target 'QNRTCKitDemo' do
   pod 'QNRTCKit-iOS', :path =>'../QNRTCKit-iOS.podspec'
@@ -10,4 +10,5 @@ target 'QNRTCKitDemo' do
   pod 'MMMaterialDesignSpinner', '0.2.5'
   pod 'JGProgressHUD', '2.0.3'
   pod 'Masonry', '1.1.0'
+  pod 'qplayer2-core', '1.2.1'
 end

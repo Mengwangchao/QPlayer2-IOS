@@ -15,7 +15,7 @@
                           userId:(NSString *)userId
                completionHandler:(void (^)(NSError *, NSString *))completionHandler {
     
-    NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api-demo.qnsdk.com/v1/rtc/token/admin/app/%@/room/%@/user/%@?bundleId=%@", appId, roomName, userId, [[NSBundle mainBundle] bundleIdentifier]]];
+    NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api-demo.qnsdk.com/v1/rtc/token/admin/app/%@/room/%@/user/%@", appId, roomName, userId]];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:requestUrl];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     request.HTTPMethod = @"GET";

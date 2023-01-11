@@ -12,6 +12,9 @@ PODS:
   - QNRTCKit-iOS (5.2.1):
     - QNRTCKit-iOS/Core (= 5.2.1)
   - QNRTCKit-iOS/Core (5.2.1)
+  - qplayer2-core (1.2.1):
+    - qplayer2-core/iphoneos (= 1.2.1)
+  - qplayer2-core/iphoneos (1.2.1)
 
 DEPENDENCIES:
   - Bugsnag (= 5.15.4)
@@ -22,6 +25,7 @@ DEPENDENCIES:
   - MMMaterialDesignSpinner (= 0.2.5)
   - PLPlayerKit (= 3.4.3)
   - QNRTCKit-iOS (from `../QNRTCKit-iOS.podspec`)
+  - qplayer2-core (= 1.2.1)
 
 SPEC REPOS:
   trunk:
@@ -32,6 +36,7 @@ SPEC REPOS:
     - Masonry
     - MMMaterialDesignSpinner
     - PLPlayerKit
+    - qplayer2-core
 
 EXTERNAL SOURCES:
   QNRTCKit-iOS:
@@ -46,7 +51,8 @@ SPEC CHECKSUMS:
   MMMaterialDesignSpinner: a548042720c2e5f04212048483085d7942ac3e81
   PLPlayerKit: a44734dc78c1f8f9fb22c537fa1916612fa46b06
   QNRTCKit-iOS: e1f7ac2ebbd74427ab9387498d755d9b8b25bfb9
+  qplayer2-core: ee9450b7dfbdcfc5b464b82022f69e0065f3897e
 
-PODFILE CHECKSUM: 81926db758f9a76f13f711e339cfab0126025066
+PODFILE CHECKSUM: 4f52652d42ae5a03ac2578e872d98fd27164d66f
 
 COCOAPODS: 1.11.3

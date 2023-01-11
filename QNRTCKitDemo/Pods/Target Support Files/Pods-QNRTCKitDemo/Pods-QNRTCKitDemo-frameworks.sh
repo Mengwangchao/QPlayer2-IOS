@@ -178,10 +178,12 @@ code_sign_if_enabled() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${PODS_ROOT}/PLPlayerKit/Pod/Library/PLPlayerKit.framework"
   install_framework "${PODS_ROOT}/../../Pod/iphoneos/QNRTCKit.framework"
+  install_framework "${PODS_ROOT}/qplayer2-core/Pod/Library/qplayer2_core.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${PODS_ROOT}/PLPlayerKit/Pod/Library/PLPlayerKit.framework"
   install_framework "${PODS_ROOT}/../../Pod/iphoneos/QNRTCKit.framework"
+  install_framework "${PODS_ROOT}/qplayer2-core/Pod/Library/qplayer2_core.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait

@@ -16,5 +16,7 @@
 @property (nonatomic, strong) UIButton *audioCallButton;
 @property (nonatomic, strong) UIButton *screenButton;
 @property (nonatomic, strong) UIButton *multiTrackButton;
+@property (nonatomic, strong) UIButton *qplayer2Button;
+@property (nonatomic, strong) UIButton *qplayer2RTCButton;
 
 @end

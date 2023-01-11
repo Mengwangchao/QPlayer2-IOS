@@ -120,6 +120,24 @@
     [self.liveButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self addSubview:_liveButton];
     
+    self.qplayer2Button = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.qplayer2Button.frame = CGRectMake(5, 350, viewWidth - 10, 40);
+    self.qplayer2Button.backgroundColor = QRD_COLOR_RGBA(52,170,220,1);
+    self.qplayer2Button.layer.cornerRadius = 20;
+    self.qplayer2Button.titleLabel.font = QRD_REGULAR_FONT(14);
+    [self.qplayer2Button setTitle:@"仅qplayer2" forState:UIControlStateNormal];
+    [self.qplayer2Button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self addSubview:self.qplayer2Button];
+    
+    self.qplayer2RTCButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.qplayer2RTCButton.frame = CGRectMake(5, 410, viewWidth - 10, 40);
+    self.qplayer2RTCButton.backgroundColor = QRD_COLOR_RGBA(52,170,220,1);
+    self.qplayer2RTCButton.layer.cornerRadius = 20;
+    self.qplayer2RTCButton.titleLabel.font = QRD_REGULAR_FONT(14);
+    [self.qplayer2RTCButton setTitle:@"qplayer2 + rtc" forState:UIControlStateNormal];
+    [self.qplayer2RTCButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self addSubview:self.qplayer2RTCButton];
+    
     UILabel *mergeLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 320, viewWidth - 50, 22)];
     mergeLabel.textColor = [UIColor whiteColor];
     mergeLabel.text = @"只有 admin 才有合流权限";
