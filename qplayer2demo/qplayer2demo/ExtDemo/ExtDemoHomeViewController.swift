@@ -84,14 +84,30 @@ class ExtDemoHomeViewController: UIViewController,UITableViewDelegate,UITableVie
         self.mCommonPlayer.playerVideoSwitcher.switchFirstVideo()
     }
     @objc func nextVideoButtonClick(sender:UIButton){
-        self.mCommonPlayer.playerVideoSwitcher.switchNextVideo()
+        if self.mCommonPlayer.playerVideoSwitcher.hasNextVideo(){
+            
+            self.mCommonPlayer.playerVideoSwitcher.switchNextVideo()
+        }else{
+            var label = UILabel(frame: CGRectMake(UIScreen.main.bounds.width/2-75, UIScreen.main.bounds.height/2-15, 150 , 30))
+            label.backgroundColor = UIColor.gray
+            label.text = "没有下一个了"
+            self.view.addSubview(label)
+            Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
+                label.removeFromSuperview()
+            }
+//            var timer = Timer(timeInterval: 2, repeats: false) { _ in
+//                label.removeFromSuperview()
+//            }
+        }
     }
     func setUpPlayer(models:Array<QNClassModel>){
         var service = Set<String>()
         do{
+            var controlfig = ControlPanelConfig("name", Array())
             let builder = try CommonPlayerConfig<Any, myIlogic, CommonPlayableParams, CommonVideoParams>.CommonPlayerCoreConfig.Builder().setPlayerDataSource(playerDataSource: self.mPlayerDataSource)
                 .addEnviroment(name: "sas", enviroment: QNExtICommonPlayerEnvironment(name: "safas", serviceTypes: service))
                 .setRootUIContanier(rootContainer: self.playerView)
+                .addControlPanel(controlContainerConfig: controlfig)
                 .enableScreenRender()
             var configs = Array<QNClassModel>()
             
@@ -174,7 +190,7 @@ class ExtDemoHomeViewController: UIViewController,UITableViewDelegate,UITableVie
     }
     func setTableView(){
         self.urlTableView = UITableView(frame: CGRect(x: 0, y: self.playerView.frame.height + 200, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height - self.playerView.frame.height - 200))
-        self.urlTableView.backgroundColor = .blue
+        self.urlTableView.backgroundColor = .white
         self.urlTableView.delegate = self
         self.urlTableView.dataSource = self
         self.urlTableView.register(QNURLListTableViewCell.self, forCellReuseIdentifier: "listCell")
@@ -268,6 +284,7 @@ class ExtDemoHomeViewController: UIViewController,UITableViewDelegate,UITableVie
     }
     @objc func fullButtonClick(sender:UIButton){
         sender.isSelected = !sender.isSelected
+
         self.urlTableView.isHidden = sender.isSelected
         self.forceOrientationLandscape(isLandscape: sender.isSelected)
     }
