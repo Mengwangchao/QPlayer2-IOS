@@ -33,12 +33,22 @@ class ExtDemoHomeViewController: UIViewController,UITableViewDelegate,UITableVie
     var nextVideoButton : QNButtonView!
     var rePlayButton : QNButtonView!
     var firstVideoButton : QNButtonView!
+    var showBoardButton : QNButtonView!
+    var hideBoardButton : QNButtonView!
+    var changeBoardButton : QNButtonView!
+    var nextParamsButton : QNButtonView!
+    var backButton : QNButtonView!
     var playerView : UIView!
     var playerConfigArray : Array<QNClassModel>!
     var playerModels : Array<QMediaModel>!
     var urlTableView : UITableView!
     var selectedIndex : Int!
     var forceNetwork : Bool!
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.mCommonPlayer.release()
+        self.mCommonPlayer = nil
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.playerConfigArray = QDataHandle.shareInstance().playerConfigArray;
@@ -65,9 +75,9 @@ class ExtDemoHomeViewController: UIViewController,UITableViewDelegate,UITableVie
     }
     func setButtonView(){
         
-        self.fullButton = QNButtonView(frame: CGRect(x: 100, y: self.playerView.frame.size.height + self.playerView.frame.origin.y + 10, width: 70, height: 30), title: "全屏", target: self, action: #selector(fullButtonClick))
+        self.fullButton = QNButtonView(frame: CGRect(x: 10, y: self.playerView.frame.size.height + self.playerView.frame.origin.y + 10, width: 70, height: 30), title: "全屏", target: self, action: #selector(fullButtonClick))
         self.view.addSubview(self.fullButton)
-        self.nextVideoButton = QNButtonView(frame: CGRect(x: 100, y: 140, width: 70, height: 30), title: "下一个", target: self, action: #selector(nextVideoButtonClick))
+        self.nextVideoButton = QNButtonView(frame: CGRect(x: 100, y: 140, width: 120, height: 30), title: "下一个video", target: self, action: #selector(nextVideoButtonClick))
         self.nextVideoButton.isHidden = true
         self.view.addSubview(self.nextVideoButton)
         self.rePlayButton = QNButtonView(frame: CGRect(x: 100, y: 180, width: 70, height: 30), title: "重播", target: self, action: #selector(rePlayButtonClick))
@@ -76,6 +86,44 @@ class ExtDemoHomeViewController: UIViewController,UITableViewDelegate,UITableVie
         self.firstVideoButton = QNButtonView(frame: CGRect(x: 100, y: 220, width: 70, height: 30), title: "第一集", target: self, action: #selector(firstVideoButtonClick))
         self.firstVideoButton.isHidden = true
         self.view.addSubview(self.firstVideoButton)
+        self.nextParamsButton = QNButtonView(frame: CGRect(x: 100, y: 260, width: 120, height: 30), title: "下一个param", target: self, action: #selector(nextParamsButtonClick))
+        self.nextParamsButton.isHidden = true
+        self.view.addSubview(self.nextParamsButton)
+        self.showBoardButton = QNButtonView(frame: CGRect(x: self.fullButton.frame.origin.x + self.fullButton.frame.width + 10, y: self.fullButton.frame.origin.y, width: 120, height: 30), title: "显示面板", target: self, action: #selector(showBoardButtonClick))
+        self.view.addSubview(self.showBoardButton)
+        self.hideBoardButton = QNButtonView(frame: CGRect(x: self.showBoardButton.frame.origin.x + self.showBoardButton.frame.width + 10, y: self.showBoardButton.frame.origin.y, width: 120, height: 30), title: "隐藏面板", target: self, action: #selector(hideBoardButtonClick))
+        self.view.addSubview(self.hideBoardButton)
+        self.changeBoardButton = QNButtonView(frame: CGRect(x: self.fullButton.frame.origin.x + self.fullButton.frame.width + 10, y: self.fullButton.frame.origin.y + self.fullButton.frame.height, width: 120, height: 30), title: "切换面板", target: self, action: #selector(changeBoardButtonClick))
+        self.view.addSubview(self.changeBoardButton)
+        self.backButton = QNButtonView(frame: CGRect(x: self.fullButton.frame.origin.x, y: self.fullButton.frame.origin.y + self.fullButton.frame.height, width: 70, height: 30), title: "返回", target: self, action: #selector(backButtonClick))
+        self.view.addSubview(self.backButton)
+        
+    }
+    @objc func backButtonClick(sender: UIButton){
+        self.navigationController?.popViewController(animated: true)
+    }
+    @objc func nextParamsButtonClick(sender :UIButton){
+        if self.mCommonPlayer.playerVideoSwitcher.hasNextPlayableParams(){
+            self.mCommonPlayer.playerVideoSwitcher.switchNextPlayableParams()
+        }else{
+            
+            var label = UILabel(frame: CGRectMake(UIScreen.main.bounds.width/2-75, UIScreen.main.bounds.height/2-15, 150 , 30))
+            label.backgroundColor = UIColor.gray
+            label.text = "没有下一个了"
+            self.view.addSubview(label)
+            Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
+                label.removeFromSuperview()
+            }
+        }
+    }
+    @objc func changeBoardButtonClick(sender: UIButton){
+        self.mCommonPlayer.mPlayerCore.playerControlPanelContainer?.switchScreen(screenType: .FULL_SCREEN, displayOrientation: .LANDSCAPE)
+    }
+    @objc func showBoardButtonClick(sender: UIButton){
+        self.mCommonPlayer.mPlayerCore.playerControlPanelContainer?.show()
+    }
+    @objc func hideBoardButtonClick(sender : UIButton){
+        self.mCommonPlayer.mPlayerCore.playerControlPanelContainer?.hide()
     }
     @objc func rePlayButtonClick(sender: UIButton){
         self.mCommonPlayer.playerVideoSwitcher.replayCurrentVideo()
@@ -95,9 +143,6 @@ class ExtDemoHomeViewController: UIViewController,UITableViewDelegate,UITableVie
             Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
                 label.removeFromSuperview()
             }
-//            var timer = Timer(timeInterval: 2, repeats: false) { _ in
-//                label.removeFromSuperview()
-//            }
         }
     }
     func setUpPlayer(models:Array<QNClassModel>){
@@ -330,6 +375,12 @@ class ExtDemoHomeViewController: UIViewController,UITableViewDelegate,UITableVie
             self.nextVideoButton.isHidden = false
             self.rePlayButton.isHidden = false
             self.firstVideoButton.isHidden = false
+            self.nextParamsButton.isHidden = false
+            self.changeBoardButton.isHidden = true
+            self.hideBoardButton.isHidden = true
+            self.backButton.isHidden = true
+            self.showBoardButton.isHidden = true
+            self.mCommonPlayer.mPlayerCore.playerControlPanelContainer?.hide()
             self.playerView.frame = CGRect(x: 0, y:0, width: UIScreen.main.bounds.size.height, height: UIScreen.main.bounds.size.width)
         }
         else{
@@ -338,17 +389,26 @@ class ExtDemoHomeViewController: UIViewController,UITableViewDelegate,UITableVie
             self.nextVideoButton.isHidden = true
             self.rePlayButton.isHidden = true
             self.firstVideoButton.isHidden = true
-            
-            self.fullButton.frame = CGRect(x: 100, y: self.playerView.frame.height + self.playerView.frame.origin.y + 10, width: 70, height: 30)
+            self.nextParamsButton.isHidden = true
+            self.changeBoardButton.isHidden = false
+            self.hideBoardButton.isHidden = false
+            self.showBoardButton.isHidden = false
+            self.backButton.isHidden = false
+            self.fullButton.frame = CGRect(x: 10, y: self.playerView.frame.height + self.playerView.frame.origin.y + 10, width: 70, height: 30)
         }
     }
     func createCommonPlayerDataSource() -> CommonPlayerDataSource<CommonPlayableParams,CommonVideoParams>{
         let dataSourceBuilder = CommonPlayerDataSource.DataSourceBuilder<CommonPlayableParams,CommonVideoParams>()
+        var builder = QMediaModelBuilder(isLive: false)
+        builder.addStreamElement(userType: "", urlType: .QURL_TYPE_QAUDIO_AND_VIDEO, url: "http://demo-videos.qnsdk.com/shortvideo/兔子.mp4", quality: 100, isSelected: true, backupUrl: "", referer: "", renderType: .QPLAYER_RENDER_TYPE_PLANE)
+        var media = builder.build()
         for (modelIndex,item) in self.playerModels.enumerated(){
             var longVideoArray = Array<CommonPlayableParams>()
             let videoParams = CommonVideoParams(id: Int64(modelIndex))
             longVideoArray.append(CommonPlayableParams(mediaModel: item, controlPanelType: "longVideo", displayOrientation: .LANDSCAPE, environmentType: "longVideo", startPos: 0))
+            longVideoArray.append(CommonPlayableParams(mediaModel: media, controlPanelType: "longVideo", displayOrientation: .LANDSCAPE, environmentType: "longVideo", startPos: 0))
             dataSourceBuilder.addVideo(videoParams: videoParams, playableParamsArray: longVideoArray)
+            
         }
         
         let dataSource = dataSourceBuilder.build()
