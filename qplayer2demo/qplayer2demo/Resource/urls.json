@@ -190,6 +190,38 @@
             {
                 "userType": "",
                 "urlType": 0,
+                "url": "http://pili-playback.qnsdk.com/recordings/z1.sdk-live.Hera/1673340696_1673340783.m3u8",
+                "quality": 960,
+                "isSelected": 1,
+                "backupUrl": "",
+                "referer": "",
+                 
+            }
+        ]
+    },
+    {
+          
+        "isLive": 0,
+        "streamElements": [
+            {
+                "userType": "",
+                "urlType": 0,
+                "url": "http://pili-vod.live-test.dgzq.com.cn/test2.m3u8",
+                "quality": 960,
+                "isSelected": 1,
+                "backupUrl": "",
+                "referer": "",
+                 
+            }
+        ]
+    },
+    {
+          
+        "isLive": 0,
+        "streamElements": [
+            {
+                "userType": "",
+                "urlType": 0,
                 "url": "http://demo-videos.qnsdk.com/Sync-Footage-V1-H264.mp4",
                 "quality": 1080,
                 "isSelected": 1,
@@ -783,6 +815,54 @@
                 "backupUrl": "",
                 "referer": "",
                 "renderType": 1,
+                 
+            }
+        ]
+    },
+    {
+          
+        "isLive": 0,
+        "streamElements": [
+            {
+                "userType": "",
+                "urlType": 0,
+                "url": "http://demo-videos.qnsdk.com/EnglishVideo.mp4",
+                "quality": 720,
+                "isSelected": 1,
+                "backupUrl": "",
+                "referer": "",
+                 
+            }
+        ],
+        "subtitleElements": [
+            {
+                "name": "英文",
+                "url": "http://demo-videos.qnsdk.com/EnglishVideo.srt",
+                "isSelected": 1,
+                 
+            }
+        ]
+    },
+    {
+          
+        "isLive": 0,
+        "streamElements": [
+            {
+                "userType": "",
+                "urlType": 0,
+                "url": "http://demo-videos.qnsdk.com/EnglishVideo.MOV",
+                "quality": 720,
+                "isSelected": 1,
+                "backupUrl": "",
+                "referer": "",
+                 
+            }
+        ],
+        "subtitleElements": [
+            {
+                "name": "英文",
+                "url": "http://demo-videos.qnsdk.com/EnglishVideo.srt",
+                "isSelected": 1,
                  
             }
         ]
