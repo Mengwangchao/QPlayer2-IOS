@@ -42,7 +42,8 @@ QIPlayerShootVideoListener,
 QIPlayerVideoFrameSizeChangeListener,
 QIPlayerSeekListener,
 QIPlayerSubtitleListener,
-QIPlayerAudioDataListener
+QIPlayerAudioDataListener,
+QIPlayerVideoDataListener
 >
 
 /** 播放器蒙版视图 **/
@@ -305,6 +306,7 @@ QIPlayerAudioDataListener
     [self.myPlayerView.controlHandler addPlayerSeekListener:self];
     [self.myPlayerView.controlHandler addPlayerSubtitleListener:self];
     [self.myPlayerView.controlHandler addPlayerAudioDataListener:self];
+    [self.myPlayerView.controlHandler addPlayerVideoDataListener:self];
     
 }
 -(void)onSeekFailed:(QPlayerContext *)context{
@@ -374,6 +376,10 @@ QIPlayerAudioDataListener
 
 -(void)onQualitySwitchFailed:(QPlayerContext *)context usertype:(NSString *)usertype urlType:(QPlayerURLType)urlType oldQuality:(NSInteger)oldQuality newQuality:(NSInteger)newQuality{
     [_toastView addText:[NSString stringWithFormat:@"切换失败"]];
+}
+
+-(void)onVideoData:(QPlayerContext *)context width:(int)width height:(int)height videoType:(QVideoType)videoType data:(NSData *)data{
+    [_toastView addText:[NSString stringWithFormat:@"videoData width :%d height : %d",width,height]];
 }
 
 -(void)onStateChange:(QPlayerContext *)context state:(QPlayerState)state{
