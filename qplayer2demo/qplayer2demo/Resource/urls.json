@@ -909,7 +909,6 @@
         ]
     },
     {
-          
         "isLive": 0,
         "streamElements": [
             {
@@ -931,11 +930,12 @@
             {
                 "userType": "",
                 "urlType": 0,
-                "url": "https://sdk-release.qnsdk.com/CENC_AES-CTR.mp4",
-                "quality": 720,
+                "url": "http://demo-videos.qnsdk.com/bbk-H265-50fps.mp4",
+                "quality": 360,
                 "isSelected": 1,
                 "backupUrl": "",
-                "referer": ""
+                "referer": "",
+                 
             }
         ]
     }
