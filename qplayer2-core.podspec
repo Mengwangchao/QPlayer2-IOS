@@ -11,11 +11,11 @@ Pod::Spec.new do |spec|
 
 
   spec.name         = "qplayer2-core"
-  spec.version      = "1.2.2"
+  spec.version      = "1.3.1"
   spec.summary      = "Pili iOS video player SDK, RTMP, HLS video streaming supported."
 
 
-  spec.homepage     = "https://github.com/AstaTus/QPlayer2"
+  spec.homepage     = "https://github.com/pili-engineering/QPlayer2-IOS.git"
      
   spec.platform                = :ios
   spec.ios.deployment_target   = '10.0'
