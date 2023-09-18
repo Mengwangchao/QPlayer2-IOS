@@ -180,7 +180,7 @@ QIPlayerAuthenticationListener
         [self.pushStreamButton setImage:[UIImage imageNamed:@"pl_stopStream"] forState:UIControlStateSelected];
         self.pushStreamButton.tintColor = [UIColor whiteColor];
         self.pushStreamButton.hidden = YES;
-        [self addSubview:self.pushStreamButton];
+//        [self addSubview:self.pushStreamButton];
         
         [self createGesture];
         
