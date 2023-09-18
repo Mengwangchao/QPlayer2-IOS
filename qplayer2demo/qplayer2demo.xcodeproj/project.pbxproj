@@ -74,8 +74,6 @@
 		977927F029B71BF1006E7931 /* QNDoublePlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 977927EF29B71BF1006E7931 /* QNDoublePlayerViewController.m */; };
 		BA3E5B032A8CB85F00032327 /* MikuDelivery.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA3E5B012A8CB85800032327 /* MikuDelivery.framework */; };
 		BA3E5B042A8CB85F00032327 /* MikuDelivery.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BA3E5B012A8CB85800032327 /* MikuDelivery.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		BA44EB8F2A936A2700AE54A8 /* qplayer2_core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA44EB8E2A936A2700AE54A8 /* qplayer2_core.framework */; };
-		BA44EB902A936A2700AE54A8 /* qplayer2_core.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BA44EB8E2A936A2700AE54A8 /* qplayer2_core.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BA67ABB02A6FE23000BE06FA /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA67ABAF2A6FE22F00BE06FA /* CoreAudio.framework */; };
 		BA78ED972A85CDA4001DE624 /* QNSamplePlayerWithQRenderView.m in Sources */ = {isa = PBXBuildFile; fileRef = BA78ED962A85CDA4001DE624 /* QNSamplePlayerWithQRenderView.m */; };
 		BA78EDA12A8631C1001DE624 /* QNMediaItemContextManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BA78EDA02A8631C1001DE624 /* QNMediaItemContextManager.m */; };
@@ -84,6 +82,8 @@
 		BA78EDAA2A89FAFE001DE624 /* QNShortVideoPlayerViewCache.m in Sources */ = {isa = PBXBuildFile; fileRef = BA78EDA92A89FAFE001DE624 /* QNShortVideoPlayerViewCache.m */; };
 		BA78EDB02A8A205A001DE624 /* QNMikuClientManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BA78EDAF2A8A205A001DE624 /* QNMikuClientManager.m */; };
 		BA8977B62A6E52EB007C1F84 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA8977B52A6E52EB007C1F84 /* CoreMedia.framework */; };
+		BAC57C692AB84F7C006F2F8D /* qplayer2_core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAC57C682AB84F7C006F2F8D /* qplayer2_core.framework */; };
+		BAC57C6A2AB84F7C006F2F8D /* qplayer2_core.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BAC57C682AB84F7C006F2F8D /* qplayer2_core.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -94,7 +94,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				BA3E5B042A8CB85F00032327 /* MikuDelivery.framework in Embed Frameworks */,
-				BA44EB902A936A2700AE54A8 /* qplayer2_core.framework in Embed Frameworks */,
+				BAC57C6A2AB84F7C006F2F8D /* qplayer2_core.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -216,6 +216,8 @@
 		BA8977B52A6E52EB007C1F84 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		BA908F322A5E53120080E10A /* qplayer2_core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = qplayer2_core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAAD19762A65450000DB96FF /* qplayer2_core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = qplayer2_core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BAC57C682AB84F7C006F2F8D /* qplayer2_core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = qplayer2_core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BAD5A6FE2AAEE93000EC706A /* qplayer2_core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = qplayer2_core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA90B80F289A7AF60087543B /* qplayer2demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = qplayer2demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -226,7 +228,7 @@
 			files = (
 				50B1F3D5289BBF7A0074E02D /* Foundation.framework in Frameworks */,
 				BA3E5B032A8CB85F00032327 /* MikuDelivery.framework in Frameworks */,
-				BA44EB8F2A936A2700AE54A8 /* qplayer2_core.framework in Frameworks */,
+				BAC57C692AB84F7C006F2F8D /* qplayer2_core.framework in Frameworks */,
 				BA67ABB02A6FE23000BE06FA /* CoreAudio.framework in Frameworks */,
 				50387155292CA3410000C4DD /* CoreMotion.framework in Frameworks */,
 				616D0BA391829A738EA77F6B /* libPods-qplayer2demo.a in Frameworks */,
@@ -470,6 +472,8 @@
 		CA90BF8B289B846C0087543B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BAC57C682AB84F7C006F2F8D /* qplayer2_core.framework */,
+				BAD5A6FE2AAEE93000EC706A /* qplayer2_core.framework */,
 				BA44EB8E2A936A2700AE54A8 /* qplayer2_core.framework */,
 				BA576B172A8B1537008BD482 /* qplayer2_core.framework */,
 				BA67ABAF2A6FE22F00BE06FA /* CoreAudio.framework */,
@@ -497,7 +501,6 @@
 				CA90B80B289A7AF60087543B /* Sources */,
 				CA90B80C289A7AF60087543B /* Frameworks */,
 				CA90B80D289A7AF60087543B /* Resources */,
-				E7EF92DC46B9A74130BB7140 /* [CP] Embed Pods Frameworks */,
 				BA576B1A2A8B1537008BD482 /* Embed Frameworks */,
 			);
 			buildRules = (
@@ -611,23 +614,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E7EF92DC46B9A74130BB7140 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-qplayer2demo/Pods-qplayer2demo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-qplayer2demo/Pods-qplayer2demo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-qplayer2demo/Pods-qplayer2demo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -834,6 +820,8 @@
 				);
 				INFOPLIST_FILE = qplayer2demo/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "是否开启相机权限";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "是否允许使用网络";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "是否允许使用网络";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "保存图片需要同意开启相册权限";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -846,7 +834,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.4;
+				MARKETING_VERSION = 1.3.2;
 				PODS_PODFILE_DIR_PATH = "${SRCROOT}/.";
 				PODS_ROOT = "${SRCROOT}/Pods";
 				PRODUCT_BUNDLE_IDENTIFIER = com.qiniu.qplayer2demo;
@@ -894,6 +882,8 @@
 				);
 				INFOPLIST_FILE = qplayer2demo/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "是否开启相机权限";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "是否允许使用网络";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "是否允许使用网络";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "保存图片需要同意开启相册权限";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -906,7 +896,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.4;
+				MARKETING_VERSION = 1.3.2;
 				PODS_PODFILE_DIR_PATH = "${SRCROOT}/.";
 				PODS_ROOT = "${SRCROOT}/Pods";
 				PRODUCT_BUNDLE_IDENTIFIER = com.qiniu.qplayer2demo;
