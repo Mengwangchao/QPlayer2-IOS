@@ -83,7 +83,19 @@
 		BA78EDAA2A89FAFE001DE624 /* QNShortVideoPlayerViewCache.m in Sources */ = {isa = PBXBuildFile; fileRef = BA78EDA92A89FAFE001DE624 /* QNShortVideoPlayerViewCache.m */; };
 		BA78EDB02A8A205A001DE624 /* QNMikuClientManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BA78EDAF2A8A205A001DE624 /* QNMikuClientManager.m */; };
 		BA8977B62A6E52EB007C1F84 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA8977B52A6E52EB007C1F84 /* CoreMedia.framework */; };
+		BAD4CFDE2AD642B900D7F9FC /* qplayer2demoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = BAD4CFDD2AD642B900D7F9FC /* qplayer2demoUITests.m */; };
+		BAD4CFE02AD642B900D7F9FC /* qplayer2demoUITestsLaunchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BAD4CFDF2AD642B900D7F9FC /* qplayer2demoUITestsLaunchTests.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		BAD4CFE12AD642B900D7F9FC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CA90B807289A7AF60087543B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CA90B80E289A7AF60087543B;
+			remoteInfo = qplayer2demo;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		BA576B1A2A8B1537008BD482 /* Embed Frameworks */ = {
@@ -216,11 +228,21 @@
 		BA908F322A5E53120080E10A /* qplayer2_core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = qplayer2_core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAAD19762A65450000DB96FF /* qplayer2_core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = qplayer2_core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAC57C682AB84F7C006F2F8D /* qplayer2_core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = qplayer2_core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BAD4CFDB2AD642B900D7F9FC /* qplayer2demoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = qplayer2demoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BAD4CFDD2AD642B900D7F9FC /* qplayer2demoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = qplayer2demoUITests.m; sourceTree = "<group>"; };
+		BAD4CFDF2AD642B900D7F9FC /* qplayer2demoUITestsLaunchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = qplayer2demoUITestsLaunchTests.m; sourceTree = "<group>"; };
 		BAD5A6FE2AAEE93000EC706A /* qplayer2_core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = qplayer2_core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA90B80F289A7AF60087543B /* qplayer2demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = qplayer2demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		BAD4CFD82AD642B900D7F9FC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CA90B80C289A7AF60087543B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -448,10 +470,20 @@
 			path = MikuDelivery;
 			sourceTree = "<group>";
 		};
+		BAD4CFDC2AD642B900D7F9FC /* qplayer2demoUITests */ = {
+			isa = PBXGroup;
+			children = (
+				BAD4CFDD2AD642B900D7F9FC /* qplayer2demoUITests.m */,
+				BAD4CFDF2AD642B900D7F9FC /* qplayer2demoUITestsLaunchTests.m */,
+			);
+			path = qplayer2demoUITests;
+			sourceTree = "<group>";
+		};
 		CA90B806289A7AF60087543B = {
 			isa = PBXGroup;
 			children = (
 				50B1F41C289CC62D0074E02D /* qplayer2demo */,
+				BAD4CFDC2AD642B900D7F9FC /* qplayer2demoUITests */,
 				CA90B810289A7AF60087543B /* Products */,
 				CA90BF8B289B846C0087543B /* Frameworks */,
 				36EE3C23CAAEDEE976CDECB3 /* Pods */,
@@ -462,6 +494,7 @@
 			isa = PBXGroup;
 			children = (
 				CA90B80F289A7AF60087543B /* qplayer2demo.app */,
+				BAD4CFDB2AD642B900D7F9FC /* qplayer2demoUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -492,6 +525,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		BAD4CFDA2AD642B900D7F9FC /* qplayer2demoUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BAD4CFE52AD642B900D7F9FC /* Build configuration list for PBXNativeTarget "qplayer2demoUITests" */;
+			buildPhases = (
+				BAD4CFD72AD642B900D7F9FC /* Sources */,
+				BAD4CFD82AD642B900D7F9FC /* Frameworks */,
+				BAD4CFD92AD642B900D7F9FC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BAD4CFE22AD642B900D7F9FC /* PBXTargetDependency */,
+			);
+			name = qplayer2demoUITests;
+			productName = qplayer2demoUITests;
+			productReference = BAD4CFDB2AD642B900D7F9FC /* qplayer2demoUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		CA90B80E289A7AF60087543B /* qplayer2demo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = CA90B828289A7AF80087543B /* Build configuration list for PBXNativeTarget "qplayer2demo" */;
@@ -520,6 +571,10 @@
 				BuildIndependentTargetsInParallel = 1;
 				LastUpgradeCheck = 1340;
 				TargetAttributes = {
+					BAD4CFDA2AD642B900D7F9FC = {
+						CreatedOnToolsVersion = 14.3.1;
+						TestTargetID = CA90B80E289A7AF60087543B;
+					};
 					CA90B80E289A7AF60087543B = {
 						CreatedOnToolsVersion = 13.4.1;
 						LastSwiftMigration = 1340;
@@ -540,11 +595,19 @@
 			projectRoot = "";
 			targets = (
 				CA90B80E289A7AF60087543B /* qplayer2demo */,
+				BAD4CFDA2AD642B900D7F9FC /* qplayer2demoUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		BAD4CFD92AD642B900D7F9FC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CA90B80D289A7AF60087543B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -618,6 +681,15 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		BAD4CFD72AD642B900D7F9FC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BAD4CFE02AD642B900D7F9FC /* qplayer2demoUITestsLaunchTests.m in Sources */,
+				BAD4CFDE2AD642B900D7F9FC /* qplayer2demoUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CA90B80B289A7AF60087543B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -656,6 +728,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		BAD4CFE22AD642B900D7F9FC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CA90B80E289A7AF60087543B /* qplayer2demo */;
+			targetProxy = BAD4CFE12AD642B900D7F9FC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		50B1F443289CC62D0074E02D /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -676,6 +756,52 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		BAD4CFE32AD642B900D7F9FC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = W2TP34G2MM;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/qplayer2demo",
+					"\"$(SRCROOT)/qplayer2demo\"",
+				);
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.qiniu.qplayer2demo.qplayer2demoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = qplayer2demo;
+			};
+			name = Debug;
+		};
+		BAD4CFE42AD642B900D7F9FC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = W2TP34G2MM;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/qplayer2demo",
+					"\"$(SRCROOT)/qplayer2demo\"",
+				);
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.qiniu.qplayer2demo.qplayer2demoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = qplayer2demo;
+			};
+			name = Release;
+		};
 		CA90B826289A7AF80087543B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -911,6 +1037,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		BAD4CFE52AD642B900D7F9FC /* Build configuration list for PBXNativeTarget "qplayer2demoUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BAD4CFE32AD642B900D7F9FC /* Debug */,
+				BAD4CFE42AD642B900D7F9FC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		CA90B80A289A7AF60087543B /* Build configuration list for PBXProject "qplayer2demo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
