@@ -40,6 +40,7 @@ QIPlayerAuthenticationListener,
 QIPlayerRenderListener,
 QIPlayerShootVideoListener,
 QIPlayerVideoFrameSizeChangeListener,
+QIPlayerVideoDecodeListener,
 QIPlayerSeekListener
 >
 
@@ -252,6 +253,7 @@ QIPlayerSeekListener
     [self.myPlayerView.controlHandler addPlayerShootVideoListener:self];
     [self.myPlayerView.controlHandler addPlayerVideoFrameSizeChangeListener:self];
     [self.myPlayerView.controlHandler addPlayerSeekListener:self];
+    [self.myPlayerView.controlHandler addPlayerVideoDecodeTypeListener:self];
     
 }
 -(void)onSeekFailed:(QPlayerContext *)context{
@@ -664,7 +666,15 @@ QIPlayerSeekListener
         }
     }
 }
-
+-(void)onDecodeFailed:(QPlayerContext *)context retry:(BOOL)retry{
+    if(retry){
+        
+        [self.toastView addText:@"解码失败，retry : true"];
+    }else{
+        
+        [self.toastView addText:@"解码失败，retry : false"];
+    }
+}
 #pragma mark - PLScanViewControlerDelegate 代理方法
 
 - (void)scanQRResult:(NSString *)qrString isLive:(BOOL)isLive{
