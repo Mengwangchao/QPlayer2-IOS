@@ -1,6 +1,38 @@
 [
     {
           
+        "isLive": 1,
+        "streamElements": [
+            {
+                "userType": "",
+                "urlType": 0,
+                "url": "rtmp://pili-live-rtmp.jancd.cloudvdn.com/jancd/hugotest",
+                "quality": 100,
+                "isSelected": 1,
+                "backupUrl": "",
+                "referer": "",
+                 
+            }
+        ]
+    },
+    {
+          
+        "isLive": 1,
+        "streamElements": [
+            {
+                "userType": "",
+                "urlType": 0,
+                "url": "rtmp://pili-live-rtmp.jancd.cloudvdn.com/jancd/hugotest-1",
+                "quality": 100,
+                "isSelected": 1,
+                "backupUrl": "",
+                "referer": "",
+                 
+            }
+        ]
+    },
+    {
+          
         "isLive": 0,
         "streamElements": [
             {
