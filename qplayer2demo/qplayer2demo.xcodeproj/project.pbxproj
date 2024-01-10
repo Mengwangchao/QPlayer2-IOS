@@ -73,6 +73,7 @@
 		977927F029B71BF1006E7931 /* QNDoublePlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 977927EF29B71BF1006E7931 /* QNDoublePlayerViewController.m */; };
 		BA0FD0B42B43B822009C9390 /* qplayer2_core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA0FD0B32B43B822009C9390 /* qplayer2_core.framework */; };
 		BA0FD0B52B43B822009C9390 /* qplayer2_core.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BA0FD0B32B43B822009C9390 /* qplayer2_core.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		BA0FD0BB2B480048009C9390 /* NSDataToCVPixelBufferRefHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = BA0FD0BA2B480048009C9390 /* NSDataToCVPixelBufferRefHelper.m */; };
 		BA3E5B032A8CB85F00032327 /* MikuDelivery.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA3E5B012A8CB85800032327 /* MikuDelivery.framework */; };
 		BA3E5B042A8CB85F00032327 /* MikuDelivery.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BA3E5B012A8CB85800032327 /* MikuDelivery.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BA67ABB02A6FE23000BE06FA /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA67ABAF2A6FE22F00BE06FA /* CoreAudio.framework */; };
@@ -206,6 +207,8 @@
 		977927EF29B71BF1006E7931 /* QNDoublePlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QNDoublePlayerViewController.m; sourceTree = "<group>"; };
 		B2BDA3706EA1C6372228C6C3 /* Pods-qplayer2demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-qplayer2demo.debug.xcconfig"; path = "Target Support Files/Pods-qplayer2demo/Pods-qplayer2demo.debug.xcconfig"; sourceTree = "<group>"; };
 		BA0FD0B32B43B822009C9390 /* qplayer2_core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = qplayer2_core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA0FD0B92B480048009C9390 /* NSDataToCVPixelBufferRefHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSDataToCVPixelBufferRefHelper.h; sourceTree = "<group>"; };
+		BA0FD0BA2B480048009C9390 /* NSDataToCVPixelBufferRefHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSDataToCVPixelBufferRefHelper.m; sourceTree = "<group>"; };
 		BA1855D32A5C08BC009BD367 /* qplayer2_core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = qplayer2_core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA3E5B012A8CB85800032327 /* MikuDelivery.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MikuDelivery.framework; sourceTree = "<group>"; };
 		BA40090E2AC565DF00059A15 /* qplayer2_core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = qplayer2_core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -443,6 +446,8 @@
 				50B1F447289CC62D0074E02D /* QNPlayerViewController.m */,
 				50B1F455289CC62D0074E02D /* QNURLListTableViewCell.h */,
 				50B1F437289CC62D0074E02D /* QNURLListTableViewCell.m */,
+				BA0FD0B92B480048009C9390 /* NSDataToCVPixelBufferRefHelper.h */,
+				BA0FD0BA2B480048009C9390 /* NSDataToCVPixelBufferRefHelper.m */,
 			);
 			path = LongVideo;
 			sourceTree = "<group>";
@@ -718,6 +723,7 @@
 				50B1F48F289CC62D0074E02D /* QNURLListTableViewCell.m in Sources */,
 				5076C95E2906AD7C007763E7 /* QNCellPlayerTableViewCell.m in Sources */,
 				BA78EDB02A8A205A001DE624 /* QNMikuClientManager.m in Sources */,
+				BA0FD0BB2B480048009C9390 /* NSDataToCVPixelBufferRefHelper.m in Sources */,
 				50B1F487289CC62D0074E02D /* QNConfigSegTableViewCell.m in Sources */,
 				50B1F4A0289CC62D0074E02D /* QNScanViewController.m in Sources */,
 				BA78EDA42A8632B4001DE624 /* QNPlayItemManager.m in Sources */,
