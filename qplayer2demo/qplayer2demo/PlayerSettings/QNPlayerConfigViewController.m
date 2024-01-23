@@ -60,15 +60,16 @@ static NSString *listIdentifier = @"listCell";
     titleLab.text = @"PLPlayer 点播设置";
 
     [self.view addSubview:titleLab];
-    [titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_equalTo(CGSizeMake(200, 34));
-        make.leftMargin.mas_equalTo(PL_SCREEN_WIDTH/2 - 100);
-        CGFloat topSpace = 20;
-        if (PL_iPhoneX ||PL_iPhoneXR || PL_iPhoneXSMAX) {
-            topSpace = 9;
-        }
-        make.topMargin.mas_equalTo(topSpace);
-    }];
+
+//    [titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.size.mas_equalTo(CGSizeMake(200, 34));
+//        make.leftMargin.mas_equalTo(PL_SCREEN_WIDTH/2 - 100);
+//        CGFloat topSpace = 20;
+//        if (PL_iPhoneX ||PL_iPhoneXR || PL_iPhoneXSMAX) {
+//            topSpace = 9;
+//        }
+//        make.topMargin.mas_equalTo(topSpace);
+//    }];
     titleLab.textAlignment = NSTextAlignmentCenter;
     
     UIButton *closeButton = [[UIButton alloc] init];
@@ -77,15 +78,16 @@ static NSString *listIdentifier = @"listCell";
     [closeButton addTarget:self action:@selector(closeButtonAction) forControlEvents:UIControlEventTouchDown];
     [closeButton setImage:[UIImage imageNamed:@"pl_back"] forState:UIControlStateNormal];
     [self.view addSubview:closeButton];
-    [closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_equalTo(CGSizeMake(100, 34));
-        make.left.mas_equalTo(8);
-        CGFloat topSpace = 20;
-        if (PL_HAS_NOTCH) {
-            topSpace = 8;
-        }
-        make.topMargin.mas_equalTo(topSpace);
-    }];
+
+//    [closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.size.mas_equalTo(CGSizeMake(100, 34));
+//        make.left.mas_equalTo(8);
+//        CGFloat topSpace = 20;
+//        if (PL_HAS_NOTCH) {
+//            topSpace = 8;
+//        }
+//        make.topMargin.mas_equalTo(topSpace);
+//    }];
     
     self.playerConfigTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 78, PL_SCREEN_WIDTH, PL_SCREEN_HEIGHT - 78) style:UITableViewStylePlain];
     self.playerConfigTableView.backgroundColor = [UIColor whiteColor];

@@ -50,11 +50,11 @@
     titleLab.text = @"URL 地址二维码扫描";
     titleLab.textColor = [UIColor whiteColor];
     [self.view addSubview:titleLab];
-    [titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_equalTo(CGSizeMake(160, 30));
-        make.leftMargin.mas_equalTo(PL_SCREEN_WIDTH/2 - 80);
-        make.topMargin.mas_equalTo(34);
-    }];
+//    [titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.size.mas_equalTo(CGSizeMake(160, 30));
+//        make.leftMargin.mas_equalTo(PL_SCREEN_WIDTH/2 - 80);
+//        make.topMargin.mas_equalTo(34);
+//    }];
     
     UIButton *closeButton = [[UIButton alloc] init];
     closeButton.layer.cornerRadius = 17;
@@ -62,11 +62,11 @@
     [closeButton addTarget:self action:@selector(closeButtonSelected) forControlEvents:UIControlEventTouchDown];
     [closeButton setImage:[UIImage imageNamed:@"pl_back"] forState:UIControlStateNormal];
     [self.view addSubview:closeButton];
-    [closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_equalTo(CGSizeMake(34, 34));
-        make.leftMargin.mas_equalTo(8);
-        make.topMargin.mas_equalTo(32);
-    }];
+//    [closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.size.mas_equalTo(CGSizeMake(34, 34));
+//        make.leftMargin.mas_equalTo(8);
+//        make.topMargin.mas_equalTo(32);
+//    }];
 }
 
 - (void)closeButtonSelected {

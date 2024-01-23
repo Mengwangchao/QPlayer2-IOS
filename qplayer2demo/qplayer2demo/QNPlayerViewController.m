@@ -235,6 +235,7 @@ QIPlayerSeekListener
     }
     QMediaModel *model = _playerModels.firstObject;
 
+    [self.myPlayerView.controlHandler setDecoderType:QPLAYER_DECODER_SETTING_SOFT_PRIORITY];
     [self.myPlayerView.controlHandler playMediaModel:model startPos:[[QDataHandle shareInstance] getConfiguraPostion]];
 
 }

@@ -139,7 +139,9 @@ QIPlayerAuthenticationListener
         
         if (!isLiving) {
             [self layoutFastView];
-            self.fastView.hidden = YES;
+            self.fastView.backgroundColor = [UIColor redColor];
+//            self.fastView.frame = CGRectMake(100, 100, 100, 100);
+            self.fastView.hidden = NO;
         }
         
         CGFloat ratio = [self receiveComparison];
@@ -409,29 +411,29 @@ QIPlayerAuthenticationListener
     [self.fastView addSubview:self.fastTimeLabel];
     [self.fastView addSubview:self.fastProgressView];
     
-    [self.fastView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(125);
-        make.height.mas_equalTo(80);
-        make.center.equalTo(self);
-    }];
+//    [self.fastView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.width.mas_equalTo(125);
+//        make.height.mas_equalTo(80);
+//        make.center.equalTo(self);
+//    }];
     
-    [self.fastImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_offset(32);
-        make.height.mas_offset(32);
-        make.top.mas_equalTo(5);
-        make.centerX.mas_equalTo(self.fastView.mas_centerX);
-    }];
-    
-    [self.fastTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.with.trailing.mas_equalTo(0);
-        make.top.mas_equalTo(self.fastImageView.mas_bottom).offset(2);
-    }];
-    
-    [self.fastProgressView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.mas_equalTo(12);
-        make.trailing.mas_equalTo(-12);
-        make.top.mas_equalTo(self.fastTimeLabel.mas_bottom).offset(10);
-    }];
+//    [self.fastImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.width.mas_offset(32);
+//        make.height.mas_offset(32);
+//        make.top.mas_equalTo(5);
+//        make.centerX.mas_equalTo(self.fastView.mas_centerX);
+//    }];
+//    
+//    [self.fastTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.leading.with.trailing.mas_equalTo(0);
+//        make.top.mas_equalTo(self.fastImageView.mas_bottom).offset(2);
+//    }];
+//    
+//    [self.fastProgressView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.leading.mas_equalTo(12);
+//        make.trailing.mas_equalTo(-12);
+//        make.top.mas_equalTo(self.fastTimeLabel.mas_bottom).offset(10);
+//    }];
 }
 
 - (CGFloat)receiveComparison {

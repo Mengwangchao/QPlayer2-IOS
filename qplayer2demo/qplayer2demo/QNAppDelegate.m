@@ -21,7 +21,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    [Bugly startWithAppId:@"f562ca3299"];
+//    [Bugly startWithAppId:@"f562ca3299"];
     
     
     QNHomeViewController *mainVC = [[QNHomeViewController alloc] init];
