@@ -173,7 +173,7 @@ QIPlayerSeekListener
 
     [self.durationTimer invalidate];
     self.durationTimer = nil;
-    self.durationTimer = [NSTimer scheduledTimerWithTimeInterval:0.05f target:self selector:@selector(onTimer:) userInfo:nil repeats:YES];
+//    self.durationTimer = [NSTimer scheduledTimerWithTimeInterval:0.05f target:self selector:@selector(onTimer:) userInfo:nil repeats:YES];
     // Do any additional setup after loading the view.
     self.navigationController.navigationBar.barTintColor = PL_SEGMENT_BG_COLOR;
     [self.navigationItem setHidesBackButton:YES];
