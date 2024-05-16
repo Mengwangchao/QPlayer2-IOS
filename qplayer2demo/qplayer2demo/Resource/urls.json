@@ -1026,7 +1026,7 @@
             {
                 "userType": "",
                 "urlType": 0,
-                "url": "http://hdllive-main.autohome.com.cn/athmlive-main/z1_athmlive-main_908180.flv",
+                "url": "rtmp://pili-live-rtmp.blued.cn/blued/663d8aafd29c4e517780e496",
                 "quality": 960,
                 "isSelected": 1,
                 "backupUrl": "",
@@ -1041,7 +1041,23 @@
             {
                 "userType": "",
                 "urlType": 0,
-                "url": "rtmp://pili-live-rtmp.jixiangmei.zhongwei-info.com/jixiangmei/1662026811828",
+                "url": "rtmp://pili-live-rtmp.jixiangmei.zhongwei-info.com/jixiangmei/1708425946376",
+                "quality": 960,
+                "isSelected": 1,
+                "backupUrl": "",
+                "referer": ""
+            }
+        ]
+    },
+    {
+        
+        "isLive": 0,
+        
+        "streamElements": [
+            {
+                "userType": "",
+                "urlType": 0,
+                "url": "http://live.zhongwei-info.com/recordings/z1.jixiangmei.1611802668861/1660906800_1660914000.m3u8",
                 "quality": 960,
                 "isSelected": 1,
                 "backupUrl": "",
