@@ -14,7 +14,6 @@
 
 #import "QNPlayerMaskView.h"
 #import "QNInfoHeaderView.h"
-#import "QNotificationCenterHelper.h"
 #import "QNURLListTableViewCell.h"
 
 #import "QDataHandle.h"
@@ -49,7 +48,6 @@ QIPlayerSeekListener
 
 /** 界面显示的播放信息数组 **/
 @property (nonatomic, strong) NSArray *titleArray;
-@property (nonatomic, strong) QNotificationCenterHelper* mNotifi;
 
 @property (nonatomic, strong) QNInfoHeaderView *infoHeaderView;
 @property (nonatomic, strong) UITableView *urlListTableView;
@@ -94,7 +92,6 @@ QIPlayerSeekListener
 @implementation QNPlayerViewController
 
 - (void)dealloc {
-    self.mNotifi = nil;
 
     NSLog(@"QNPlayerViewController dealloc");
 }
@@ -200,7 +197,6 @@ QIPlayerSeekListener
     _toastView = [[QNToastView alloc]initWithFrame:CGRectMake(0, PL_SCREEN_HEIGHT-300, 200, 300)];
     [self.view addSubview:_toastView];
     [self playerContextAllCallBack];
-    self.mNotifi = [[QNotificationCenterHelper alloc]initWithPlayerView:self.myPlayerView];
 
     
 }
@@ -240,7 +236,7 @@ QIPlayerSeekListener
     QMediaModel *model = _playerModels.firstObject;
 
     [self.myPlayerView.controlHandler playMediaModel:model startPos:[[QDataHandle shareInstance] getConfiguraPostion]];
-
+    [self.myPlayerView.controlHandler shouldContinuePlayAfterSwitchInSpeaker:YES];
 }
 
 #pragma mark - PlayerListenerDelegate
