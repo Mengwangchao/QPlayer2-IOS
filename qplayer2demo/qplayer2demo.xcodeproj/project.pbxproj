@@ -79,6 +79,7 @@
 		BAA6BECA2CBCF1ED00B7AC1C /* qplayer2_core.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BAA6BEC82CBCF1ED00B7AC1C /* qplayer2_core.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BAD4CFDE2AD642B900D7F9FC /* qplayer2demoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = BAD4CFDD2AD642B900D7F9FC /* qplayer2demoUITests.m */; };
 		BAD4CFE02AD642B900D7F9FC /* qplayer2demoUITestsLaunchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BAD4CFDF2AD642B900D7F9FC /* qplayer2demoUITestsLaunchTests.m */; };
+		BAF8F1592CC8FD8F004BCC59 /* avplayer_backplay.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = BAF8F1582CC8FD25004BCC59 /* avplayer_backplay.mp4 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -226,6 +227,7 @@
 		BAD4CFDD2AD642B900D7F9FC /* qplayer2demoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = qplayer2demoUITests.m; sourceTree = "<group>"; };
 		BAD4CFDF2AD642B900D7F9FC /* qplayer2demoUITestsLaunchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = qplayer2demoUITestsLaunchTests.m; sourceTree = "<group>"; };
 		BAD5A6FE2AAEE93000EC706A /* qplayer2_core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = qplayer2_core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BAF8F1582CC8FD25004BCC59 /* avplayer_backplay.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = avplayer_backplay.mp4; sourceTree = "<group>"; };
 		CA90B80F289A7AF60087543B /* qplayer2demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = qplayer2demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -365,6 +367,7 @@
 		50B1F45B289CC62D0074E02D /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				BAF8F1582CC8FD25004BCC59 /* avplayer_backplay.mp4 */,
 				50B1F45C289CC62D0074E02D /* qiniu.png */,
 				50B1F45D289CC62D0074E02D /* pl_smallScreen.png */,
 				50B1F45E289CC62D0074E02D /* pl_forward.png */,
@@ -624,6 +627,7 @@
 				50B1F4B1289CC62D0074E02D /* pl_clip.png in Resources */,
 				50B1F4A2289CC62D0074E02D /* pl_smallScreen.png in Resources */,
 				50B1F4A8289CC62D0074E02D /* pl_backward.png in Resources */,
+				BAF8F1592CC8FD8F004BCC59 /* avplayer_backplay.mp4 in Resources */,
 				50B1F4B9289CC62D0074E02D /* pl_minVolume.png in Resources */,
 				50B1F4AD289CC62D0074E02D /* pl_up.png in Resources */,
 				50B1F4A7289CC62D0074E02D /* pl_maxVolume.png in Resources */,
