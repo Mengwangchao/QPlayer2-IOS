@@ -1106,6 +1106,9 @@ QIPlayerVideoDataListener
                 }
             }
         }
+        else if ([configureModel.mConfiguraKey containsString:@"静音"]){
+            [self.mPlayerView.controlHandler setMute:index == 0 ? false : true];
+        }
     }
 }
 
