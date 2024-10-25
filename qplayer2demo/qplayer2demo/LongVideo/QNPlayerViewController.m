@@ -151,10 +151,11 @@ AVPictureInPictureControllerDelegate
     self.pipController.requiresLinearPlayback = YES;
     [self.pipController setValue:@1 forKey:@"controlsStyle"];
     self.pipController.delegate = self;
-    self.pipController.canStartPictureInPictureAutomaticallyFromInline = NO;
+    self.pipController.canStartPictureInPictureAutomaticallyFromInline = YES;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowDidBecomeVisible:) name:UIWindowDidBecomeVisibleNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onUIApplicationWillEnterForeground:) name:UIApplicationDidBecomeActiveNotification object:nil];
     [self manalChangePicInPic];
     
 }
@@ -170,11 +171,14 @@ AVPictureInPictureControllerDelegate
     if ([object isKindOfClass:NSClassFromString(@"PGHostedWindow")]) {
         self.firstWindow = notification.object;
         NSLog(@"更新了Windows");
-        [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                        name:UIWindowDidBecomeVisibleNotification
-                                                      object:nil];
         
     }
+}
+-(void)onUIApplicationWillEnterForeground:(NSNotification *)notification{
+    
+    [self.pipController startPictureInPicture];
+    [self.pipController.playerLayer.player seekToTime:kCMTimeZero];
+    [self.pipController.playerLayer.player play];
 }
 - (void)playerItemDidReachEnd:(NSNotification *)notification {
     // 循环播放，只有视频在播放，才可以切后台自动进入画中画
@@ -185,19 +189,8 @@ AVPictureInPictureControllerDelegate
     NSLog(@"即将开启画中画功能");
     if (self.firstWindow) {
         self.preRect = self.mPlayerView.frame;
-        NSLog(@"width : %d, height : %d ",self.firstWindow.frame.size.width,self.firstWindow.frame.size.height);
-        self.mPlayerView.frame = CGRectMake(0, 0, PLAYER_PORTRAIT_WIDTH, PLAYER_PORTRAIT_HEIGHT);
+        self.mPlayerView.frame = CGRectMake(0, 0, 260, 130);
         [self.firstWindow addSubview:self.mPlayerView];
-//        [self.firstWindow addSubview:self.picInPicView];
-//        [self.picInPicView mas_remakeConstraints:^(MASConstraintMaker *make) {
-//            make.edges.mas_equalTo(self.firstWindow);
-//        }];
-//        QPlayerView * qplayerview = [[QPlayerView alloc]initWithFrame:CGRectMake(0, 0, self.firstWindow.frame.size.width, self.firstWindow.frame.size.height) APPVersion:@"" localStorageDir:@"" logLevel:LOG_DEBUG];
-//        QMediaModelBuilder * builder = [[QMediaModelBuilder alloc] initWithIsLive:false];
-//        [builder addStreamElementWithUserType:@"" urlType:QURL_TYPE_QAUDIO_AND_VIDEO url:@"http://demovideos.qiniushawn.top/qiniu-2023-1080p.mp4" quality:1080 isSelected:YES backupUrl:@"" referer:@"" renderType:QPLAYER_RENDER_TYPE_PLANE];
-//        QMediaModel *model = [builder build];
-//        [qplayerview.controlHandler playMediaModel:model startPos:0];
-//        [self.firstWindow addSubview:qplayerview];
     }
 }
 
@@ -208,6 +201,8 @@ AVPictureInPictureControllerDelegate
 - (void)pictureInPictureControllerWillStopPictureInPicture:(AVPictureInPictureController *)pictureInPictureController {
     NSLog(@"即将停止画中画功能");
 //    [self.qplayerview removeFromSuperview];
+    self.mPlayerView.frame = CGRectMake(0, 0, self.preRect.size.width, self.preRect.size.height);
+//    self.mPlayerView.frame = self.preRect;
 }
 
 - (void)pictureInPictureControllerDidStopPictureInPicture:(AVPictureInPictureController *)pictureInPictureController {
