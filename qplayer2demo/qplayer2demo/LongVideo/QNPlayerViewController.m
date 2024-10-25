@@ -104,6 +104,8 @@ AVPictureInPictureControllerDelegate
 @property (nonatomic, strong) AVPictureInPictureController *pipController;
 @property (nonatomic, strong)  AVPlayer *avplayer;
 @property (nonatomic, assign) CGRect preRect;
+@property (nonatomic, assign) QPlayerDecoderType mDecoderType;
+
 
 @end
 
@@ -160,6 +162,11 @@ AVPictureInPictureControllerDelegate
     
 }
 - (void)manalChangePicInPic {
+    if (self.mDecoderType == QPLAYER_DECODER_TYPE_HARDWARE) {
+        
+        [self.avplayer pause];
+        return;
+    }
     if (self.pipController.isPictureInPictureActive) {
         [self.pipController stopPictureInPicture];
     } else {
@@ -175,7 +182,10 @@ AVPictureInPictureControllerDelegate
     }
 }
 -(void)onUIApplicationWillEnterForeground:(NSNotification *)notification{
-    
+    if (self.mDecoderType == QPLAYER_DECODER_TYPE_HARDWARE) {
+        [self.avplayer pause];
+        return;
+    }
     [self.pipController startPictureInPicture];
     [self.pipController.playerLayer.player seekToTime:kCMTimeZero];
     [self.pipController.playerLayer.player play];
@@ -200,9 +210,7 @@ AVPictureInPictureControllerDelegate
 
 - (void)pictureInPictureControllerWillStopPictureInPicture:(AVPictureInPictureController *)pictureInPictureController {
     NSLog(@"即将停止画中画功能");
-//    [self.qplayerview removeFromSuperview];
     self.mPlayerView.frame = CGRectMake(0, 0, self.preRect.size.width, self.preRect.size.height);
-//    self.mPlayerView.frame = self.preRect;
 }
 
 - (void)pictureInPictureControllerDidStopPictureInPicture:(AVPictureInPictureController *)pictureInPictureController {
@@ -597,6 +605,7 @@ AVPictureInPictureControllerDelegate
 }
 -(void)onVideoDecodeByType:(QPlayerContext *)context Type:(QPlayerDecoderType)type{
     NSString* text = @"使用的解码类型：";
+    self.mDecoderType = type;
     switch (type) {
         case QPLAYER_DECODER_TYPE_NONE:
             text = [NSString stringWithFormat:@"%@ none",text];
@@ -610,6 +619,13 @@ AVPictureInPictureControllerDelegate
         default:
             text = [NSString stringWithFormat:@"%@ none",text];
             break;
+    }
+    if (self.mDecoderType == QPLAYER_DECODER_TYPE_HARDWARE) {
+        
+        [self.avplayer pause];
+        return;
+    }else{
+        [self.avplayer play];
     }
     [self.mToastView addText:text];
 }
@@ -1135,6 +1151,14 @@ AVPictureInPictureControllerDelegate
 
         } else if ([configureModel.mConfiguraKey containsString:@"Decoder"]) {
             [self.mPlayerView.controlHandler setDecoderType:(QPlayerDecoder)index];
+//            if (index == 2) {
+            if (index == 2) {
+                self.mDecoderType = QPLAYER_DECODER_TYPE_SOFTWARE;
+            }else{
+                self.mDecoderType = QPLAYER_DECODER_TYPE_HARDWARE;
+                
+            }
+//            }
         } else if ([configureModel.mConfiguraKey containsString:@"Seek"]) {
             [self.mPlayerView.controlHandler  setSeekMode:index];
 
